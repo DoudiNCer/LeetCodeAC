@@ -28,7 +28,7 @@ class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = new ListNode(l1.val + l2.val);
         ListNode rp = result;
-        int jw = 0;
+        byte jw = 0;
         if (result.val > 9){
             jw = 1;
             result.val -= 10;
