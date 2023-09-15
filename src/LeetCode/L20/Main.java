@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.L20;
 
 import java.util.Stack;
 
@@ -22,6 +22,9 @@ public class Main {
 
 class Solution {
     public boolean isValid(String s) {
+        if ((s.length() & 1) != 0){
+            return false;
+        }
         Stack<Character> cst = new Stack<>();
         for (char c : s.toCharArray()) {
             switch (c) {
