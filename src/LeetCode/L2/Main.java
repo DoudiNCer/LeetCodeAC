@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
         int[] l1 = {9,9,9,9,9,9,9}, l2 = {9, 9, 9};
-        ListNode i1 = ListNode.init(6, l1), i2 = ListNode.init(3, l2);
+        ListNode i1 = ListNode.init(l1), i2 = ListNode.init(l2);
         System.out.println(s.addTwoNumbers(i1, i2).toStrings());
     }
 }

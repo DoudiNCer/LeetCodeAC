@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
         int[] list1 = {1, 2, 4}, list2 = {1, 3, 4};
-        ListNode l1 = ListNode.init(3, list1), l2 = ListNode.init(3, list2);
+        ListNode l1 = ListNode.init(list1), l2 = ListNode.init(list2);
         System.out.println(s.mergeTwoLists(l1, l2).toStrings());
     }
 }

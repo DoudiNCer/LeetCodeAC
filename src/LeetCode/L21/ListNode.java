@@ -6,7 +6,8 @@ public class ListNode {
     ListNode() {}
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    static ListNode init(int count, int[] p){
+    static ListNode init(int[] p){
+        int count = p.length;
         ListNode result = new ListNode(p[0]);
         ListNode px = result;
         int xp = 1;
