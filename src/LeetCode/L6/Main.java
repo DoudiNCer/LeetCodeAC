@@ -27,7 +27,7 @@ public class Main {
 
 class Solution {
     public String convert(String s, int numRows) {
-        if (numRows == 1){
+        if (numRows >= s.length() || numRows == 1){
             return s;
         }
         StringBuilder[] sbs = new StringBuilder[numRows];
