@@ -71,26 +71,16 @@ class Solution {
         num %= 100;
         if (count[2] == 4){
             if (count[1] == 0){
-                for (int i = 0; i < count[0]; i++){
-                    sb.append('M');
-                }
+                sb.append("M".repeat(Math.max(0, count[0])));
                 sb.append("CD");
             } else {
-                for (int i = 0; i < count[0]; i++){
-                    sb.append('M');
-                }
+                sb.append("M".repeat(Math.max(0, count[0])));
                 sb.append("CM");
             }
         } else {
-            for (int i = 0; i < count[0]; i++){
-                sb.append('M');
-            }
-            for (int i = 0; i < count[1]; i++){
-                sb.append('D');
-            }
-            for (int i = 0; i < count[2]; i++){
-                sb.append('C');
-            }
+            sb.append("M".repeat(Math.max(0, count[0])));
+            sb.append("D".repeat(Math.max(0, count[1])));
+            sb.append("C".repeat(Math.max(0, count[2])));
         }
         count[3] = num / 50;
         num %= 50;
@@ -103,12 +93,8 @@ class Solution {
                 sb.append("XC");
             }
         } else {
-            for (int i = 0; i < count[3]; i++){
-                sb.append('L');
-            }
-            for (int i = 0; i < count[4]; i++){
-                sb.append('X');
-            }
+            sb.append("L".repeat(Math.max(0, count[3])));
+            sb.append("X".repeat(Math.max(0, count[4])));
         }
         count[5] = num / 5;
         num %= 5;
@@ -120,12 +106,8 @@ class Solution {
                 sb.append("IX");
             }
         } else {
-            for (int i = 0; i < count[5]; i++){
-                sb.append('V');
-            }
-            for (int i = 0; i < count[6]; i++){
-                sb.append('I');
-            }
+            sb.append("V".repeat(Math.max(0, count[5])));
+            sb.append("I".repeat(Math.max(0, count[6])));
         }
         return sb.toString();
     }
