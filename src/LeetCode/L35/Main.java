@@ -40,8 +40,7 @@ class Solution {
         int l = 0, r = nums.length - 1;
         if (nums[l] >= target){
             return l;
-        }
-        if (nums[r] == target){
+        } else if (nums[r] == target){
             return r;
         } else if (nums[r] < target){
             return r + 1;
