@@ -36,9 +36,10 @@ public class Main {
 class Solution {
     public int removeDuplicates(int[] nums) {
         int k = 0;
-        for (int i = 0; i < nums.length; i++){
+        int length = nums.length;
+        for (int i = 0; i < length; i++){
             int tmp = nums[i];
-            while (i < nums.length && nums[i] == tmp){
+            while (i < length && nums[i] == tmp){
                 i++;
             }
             i--;
