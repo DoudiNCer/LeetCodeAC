@@ -33,21 +33,9 @@ public class Main {
 
 class Solution {
     public int strStr(String haystack, String needle) {
-        int nlength = needle.length();
-        for (int i = 0; i < haystack.length() - nlength + 1; i++){
-            if (haystack.charAt(i) == needle.charAt(0)){
-                boolean occurrence = true;
-                for (int j = 1; j < nlength; j++){
-                    if (haystack.charAt(i + j) != needle.charAt(j)){
-                        occurrence = false;
-                        break;
-                    }
-                }
-                if (occurrence){
-                    return i;
-                }
-            }
+        if (haystack.length() < needle.length()){
+            return -1;
         }
-        return -1;
+        return haystack.indexOf(needle);
     }
 }
