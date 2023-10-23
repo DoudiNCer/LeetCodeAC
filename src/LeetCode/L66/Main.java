@@ -26,11 +26,12 @@ class Solution {
         }
         // 是否进位
         boolean add = false;
-        if ((digits[digits.length - 1] = digits[digits.length - 1] + 1) == 10){
+        int length = digits.length;
+        if ((digits[length - 1] = digits[length - 1] + 1) == 10){
             add = true;
-            digits[digits.length - 1] = 0;
+            digits[length - 1] = 0;
         }
-        int i = digits.length - 2;
+        int i = length - 2;
         while (add && i >= 0) {
             if ((digits[i] = digits[i] + 1) == 10){
                 digits[i] = 0;
@@ -40,7 +41,7 @@ class Solution {
             i--;
         }
         if (add){
-            int[] result = new int[digits.length + 1];
+            int[] result = new int[length + 1];
             result[0] = 1;
             return result;
         } else {
