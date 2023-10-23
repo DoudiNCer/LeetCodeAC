@@ -24,14 +24,10 @@ class Solution {
             digits[0] = 1;
             return digits;
         }
-        // 是否进位
-        boolean add = false;
         int length = digits.length;
-        if ((digits[length - 1] = digits[length - 1] + 1) == 10){
-            add = true;
-            digits[length - 1] = 0;
-        }
-        int i = length - 2;
+        int i = length - 1;
+        // 是否进位
+        boolean add = true;
         while (add && i >= 0) {
             if ((digits[i] = digits[i] + 1) == 10){
                 digits[i] = 0;
