@@ -57,24 +57,18 @@ class Solution {
                     nums[p - 1] = nums[q];
                     nums[q] = tmp;
                 }
-                sort(nums, p);
+                reverse(nums, p);
                 break;
         }
     }
-    private void sort(int[] source, int startx){
-        for (int i = startx; i < source.length - 1; i++){
-            boolean flag = true;
-            for (int j = startx; j < source.length - i + startx - 1; j++) {
-                if (source[j] > source[j + 1]) {
-                    int tmp = source[j];
-                    source[j] = source[j + 1];
-                    source[j + 1] = tmp;
-                    flag = false;
-                }
-            }
-            if (flag) {
-                break;
-            }
+    private void reverse(int[] source, int startx){
+        int i = startx, j = source.length - 1;
+        while (i < j){
+            int tmp = source[i];
+            source[i] = source[j];
+            source[j] = tmp;
+            i++;
+            j--;
         }
     }
 }
