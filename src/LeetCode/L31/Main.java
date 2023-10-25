@@ -35,11 +35,11 @@ public class Main {
 
 class Solution {
     public void nextPermutation(int[] nums) {
-        int tmp = nums[0];
         switch (nums.length){
             case 1:
                 break;
             case 2:
+                int tmp = nums[0];
                 nums[0] = nums[1];
                 nums[1] = tmp;
                 break;
