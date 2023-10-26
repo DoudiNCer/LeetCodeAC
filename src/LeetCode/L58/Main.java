@@ -16,8 +16,12 @@ public class Main {
 class Solution {
     public int lengthOfLastWord(String s) {
         int length = s.length() - s.lastIndexOf(" ") - 1;
-        while (length == 0 && s.length() != 0){
-            s = s.substring(0, s.length() - 1);
+        if (length == 0){
+            int p = s.length() - 2;
+            while (s.charAt(p) == ' '){
+                p--;
+            }
+            s = s.substring(0, p + 1);
             length = s.length() - s.lastIndexOf(" ") - 1;
         }
         return length;
