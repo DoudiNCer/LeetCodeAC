@@ -13,6 +13,7 @@ public class Main {
         System.out.println("s.mySqrt(0) = " + s.mySqrt(0));
         System.out.println("s.mySqrt(1) = " + s.mySqrt(1));
         System.out.println("s.mySqrt(5) = " + s.mySqrt(5));
+        System.out.println("s.mySqrt(8) = " + s.mySqrt(8));
         System.out.println("s.mySqrt(1024) = " + s.mySqrt(1024));
         System.out.println("s.mySqrt(2147395600) = " + s.mySqrt(2147395600));
     }
@@ -20,13 +21,29 @@ public class Main {
 
 class Solution {
     public int mySqrt(int x) {
-        if (x >= 2147395600){
-            return 46340;
+        int l = 0, r = 46340;
+        if (pow(l) >= x){
+            return l;
         }
-        int result = 0;
-        while ((result + 1) * (result + 1) <= x){
-            result++;
+        if (pow(r) <= x){
+            return r;
         }
-        return result;
+        int m = l + (r - l) >> 1;
+        while (l < r - 1){
+            int pm = pow(m);
+            if (pm == x) {
+                break;
+            } else if(pm > x){
+                r = m;
+            } else {
+                l = m;
+            }
+            m = (l + r) >> 1;
+        }
+        return m;
+    }
+
+    private int pow(int x){
+        return x * x;
     }
 }
