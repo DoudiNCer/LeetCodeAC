@@ -13,23 +13,27 @@ public class Main {
     public static void main(String[] args) {
         Solution s = new Solution();
         System.out.println("s.searchRange(new int[]{5,7,7,8,8,10}, 8) = " + Arrays.toString(s.searchRange(new int[]{5, 7, 7, 8, 8, 10}, 8)));
+        System.out.println("s.searchRange(new int[]{5,7,7,8,8,10}, 6) = " + Arrays.toString(s.searchRange(new int[]{5, 7, 7, 8, 8, 10}, 6)));
         System.out.println("s.searchRange(new int[]{}, 0) = " + Arrays.toString(s.searchRange(new int[]{}, 0)));
     }
 }
 
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        if (nums.length == 0){
-            return new int[]{-1, -1};
+        int length = nums.length;
+        int[] result = new int[]{-1, -1};
+        if (length == 0){
+            return result;
         }
-        if (nums.length == 1){
+        if (length == 1){
             if (nums[0] == target){
-                return new int[]{0, 0};
+                result[0] = result[1] = 0;
+                return result;
             } else {
-                return new int[]{-1, -1};
+                return result;
             }
         }
-        int l = 0, r = nums.length - 1, m = -1;
+        int l = 0, r = length - 1, m = -1;
         if (nums[l] == target){
             m = l;
         } else if (nums[r] == target){
@@ -54,10 +58,9 @@ class Solution {
         while (l > 0 && nums[l - 1] == target){
             l--;
         }
-        while (r < nums.length - 1 && nums[r + 1] == target){
+        while (r < length - 1 && nums[r + 1] == target){
             r++;
         }
-        int[] result = new int[2];
         result[0] = l;
         result[1] = r;
         return result;
