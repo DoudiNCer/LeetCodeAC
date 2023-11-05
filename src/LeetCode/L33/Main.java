@@ -21,20 +21,23 @@ public class Main {
 
 class Solution {
     public int search(int[] nums, int target) {
-        if (nums.length == 1){
+        // 只有一个元素时
+        int length = nums.length;
+        if (length == 1){
             return (nums[0] == target ? 0 : -1);
         }
-        if (nums[0] > target && nums[nums.length - 1] < target){
+        if (nums[0] > target && nums[length - 1] < target){
             return -1;
         }
-        int l = 0, r = nums.length - 1, m = -1;
-        if (nums[0] >  nums[nums.length - 1]) {
+        int l = 0, r = length - 1, m = -1;
+        // 发生非首尾端点旋转，寻找旋转点，缩减二分范围
+        if (nums[0] >  nums[length - 1]) {
             while (l <= r){
                 m = l + (r - l) / 2;
-                if (nums[m] > nums[nums.length - 1] && nums[m + 1] < nums[0]){
+                if (nums[m] > nums[length - 1] && nums[m + 1] < nums[0]){
                     break;
                 }
-                if (nums[m] > nums[nums.length - 1]){
+                if (nums[m] > nums[length - 1]){
                     l = m + 1;
                 } else {
                     r = m - 1;
@@ -42,7 +45,7 @@ class Solution {
             }
             if (nums[0] > target){
                 l = m + 1;
-                r = nums.length - 1;
+                r = length - 1;
             } else {
                 l = 0;
                 r = m;
