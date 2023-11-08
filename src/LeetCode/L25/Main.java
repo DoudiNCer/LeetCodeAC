@@ -36,25 +36,24 @@ class Solution {
             return head;
         }
         ListNode p = new ListNode();
+        ListNode q = p;
         p.next = head;
         head = p;
         while (true){
-            ListNode q = p;
             int i = 0;
             while (i < k){
                 if (q.next == null){
                     break;
-                } else {
-                    q = q.next;
-                    i++;
                 }
+                q = q.next;
+                i++;
             }
             if (i < k){
                 break;
             }
             ListNode np = p.next;
             reverseLink(p, q.next);
-            p = np;
+            q = p = np;
         }
         return head.next;
     }
