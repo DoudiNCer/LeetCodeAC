@@ -40,30 +40,20 @@ public class Main {
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if (root == null){
-            return true;
-        }
-        return isValidBSTi(root, false, root.val, false, root.val);
+        return root == null || isValidBSTi(root, false, root.val, false, root.val);
     }
     private boolean isValidBSTi(TreeNode root, boolean lLimit, int lL, boolean rLimit, int rL){
         if (root == null){
             return true;
         }
-        if (lLimit){
-            if (root.val >= lL){
-                return false;
-            }
-        }
-        if (rLimit){
-            if (root.val <= rL){
-                return false;
-            }
+        if ((lLimit && root.val >= lL) || (rLimit && root.val <= rL)){
+            return false;
         }
         if (root.left != null){
             if (root.left.val >= root.val){
                 return false;
             }
-            if (!isValidBSTi(root.left, true, lLimit ? Math.min(lL, root.val) : root.val, rLimit, rL)){
+            if (!isValidBSTi(root.left, true, root.val, rLimit, rL)){
                 return false;
             }
         }
