@@ -11,7 +11,7 @@ func lengthOfLongestSubstring(s string) int {
 	if lenS < 2 {
 		return lenS
 	}
-	sm := make(map[byte]int, lenS)
+	sm := make(map[byte]int)
 	maxLen, left, right := 0, 0, 0
 	for right < lenS {
 		x, ok := sm[s[right]]
