@@ -27,29 +27,17 @@ class Solution {
         int cy2 = Math.max(ay2, by2);
         int cxp = cx2 - cx1;
         int cyp = cy2 - cy1;
-        if (cxp == 0 || cyp == 0){
-            return 0;
-        }
-        boolean[][] d = new boolean[cxp][cyp];
-        for (int x = 0; x < cxp; x++){
-            for (int y = 0; y < cyp; y++){
-                d[x][y] = false;
-            }
-        }
-        for (int x = ax1 - cx1; x < ax2 - cx1; x++){
-            for (int y = ay1 - cy1; y < ay2 - cy1; y++){
-                d[x][y] = true;
-            }
-        }
-        for (int x = bx1 - cx1; x < bx2 - cx1; x++){
-            for (int y = by1 - cy1; y < by2 - cy1; y++){
-                d[x][y] = true;
-            }
-        }
         int result = 0;
+        if (cxp == 0 || cyp == 0){
+            return result;
+        }
         for (int x = 0; x < cxp; x++){
             for (int y = 0; y < cyp; y++){
-                result += ((d[x][y]) ? 1 : 0);
+                if (x >= (ax1 - cx1) && x < ( ax2 - cx1) && y >= (ay1 - cy1) && y < (ay2 - cy1)){
+                    result++;
+                } else if (x >= (bx1 - cx1) && x < ( bx2 - cx1) && y >= (by1 - cy1) && y < (by2 - cy1)){
+                    result++;
+                }
             }
         }
         return result;
