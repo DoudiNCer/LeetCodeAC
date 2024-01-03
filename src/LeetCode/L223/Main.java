@@ -21,25 +21,13 @@ public class Main {
 
 class Solution {
     public int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
-        int cx1 = Math.min(ax1, bx1);
-        int cy1 = Math.min(ay1, by1);
-        int cx2 = Math.max(ax2, bx2);
-        int cy2 = Math.max(ay2, by2);
-        int cxp = cx2 - cx1;
-        int cyp = cy2 - cy1;
-        int result = 0;
-        if (cxp == 0 || cyp == 0){
-            return result;
-        }
-        for (int x = 0; x < cxp; x++){
-            for (int y = 0; y < cyp; y++){
-                if (x >= (ax1 - cx1) && x < ( ax2 - cx1) && y >= (ay1 - cy1) && y < (ay2 - cy1)){
-                    result++;
-                } else if (x >= (bx1 - cx1) && x < ( bx2 - cx1) && y >= (by1 - cy1) && y < (by2 - cy1)){
-                    result++;
-                }
-            }
-        }
-        return result;
+        int as = (ax2 - ax1) * (ay2 - ay1);
+        int bs = (bx2 - bx1) * (by2 - by1);
+        int cx1 = Math.max(ax1, bx1);
+        int cy1 = Math.max(ay1, by1);
+        int cx2 = Math.min(ax2, bx2);
+        int cy2 = Math.min(ay2, by2);
+        int cs = Math.max((cx2 - cx1), 0) * Math.max((cy2 - cy1), 0);
+        return as + bs - cs;
     }
 }
