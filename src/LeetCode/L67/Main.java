@@ -1,8 +1,5 @@
 package LeetCode.L67;
 
-
-import java.util.Stack;
-
 /**
  * 给你两个二进制字符串 a 和 b ，以二进制字符串的形式返回它们的和。
  *
@@ -35,7 +32,7 @@ public class Main {
 class Solution {
     public String addBinary(String a, String b) {
         int acnt = a.length() - 1, bcnt = b.length() - 1;
-        Stack<Boolean> s = new Stack<>();
+        StringBuilder sb = new StringBuilder();
         boolean ax = false;
         while (acnt >= 0 || bcnt >= 0){
             int tmp = ax ? 1 : 0;
@@ -48,27 +45,23 @@ class Solution {
                 bcnt--;
             }
             switch (tmp) {
-                case 0 -> s.push(false);
+                case 0 -> sb.insert(0, '0');
                 case 1 -> {
-                    s.push(true);
+                    sb.insert(0, '1');
                     ax = false;
                 }
                 case 2 -> {
-                    s.push(false);
+                    sb.insert(0, '0');
                     ax = true;
                 }
                 case 3 -> {
-                    s.push(true);
+                    sb.insert(0, '1');
                     ax = true;
                 }
             }
         }
-        StringBuilder sb = new StringBuilder();
         if (ax){
-            sb.append('1');
-        }
-        while (!s.isEmpty()){
-            sb.append(s.pop() ? '1' : '0');
+            sb.insert(0, '1');
         }
         return sb.toString();
     }
