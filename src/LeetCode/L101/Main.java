@@ -40,7 +40,20 @@ public class Main {
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return NRIS(root);
+        return RIS(root.left, root.right);
+    }
+
+    private boolean RIS(TreeNode left, TreeNode right){
+        if (left == null && right == null){
+            return true;
+        }
+        if (left == null || right == null){
+            return false;
+        }
+        if (left.val != right.val){
+            return false;
+        }
+        return RIS(left.right, right.left) && RIS(left.left, right.right);
     }
 
     private boolean NRIS(TreeNode root){
