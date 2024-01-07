@@ -1,5 +1,8 @@
 package LeetCode.L104;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 给定一个二叉树 root ，返回其最大深度。
  *
@@ -47,5 +50,27 @@ class Solution {
             return 0;
         }
         return 1 + Math.max(RMD(tree.left), RMD(tree.right));
+    }
+
+    private int NRMD(TreeNode tree) {
+        int count = 0;
+        List<TreeNode> line = new LinkedList<>();
+        if (tree != null) {
+            line.add(tree);
+        }
+        while (!line.isEmpty()){
+            List<TreeNode> lt = new LinkedList<>();
+            for (TreeNode t : line) {
+                if (t.left != null) {
+                    lt.add(t.left);
+                }
+                if (t.right != null) {
+                    lt.add(t.right);
+                }
+            }
+            count++;
+            line = lt;
+        }
+        return count;
     }
 }
