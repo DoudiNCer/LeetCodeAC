@@ -1,7 +1,7 @@
 package LeetCode.L3002;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * 给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，它们的长度都是偶数 n 。
@@ -55,36 +55,21 @@ public class Main {
 class Solution {
     public int maximumSetSize(int[] nums1, int[] nums2) {
         int len = nums1.length;
-        HashSet<Integer> n1c = new HashSet<>(len);
-        HashSet<Integer> n2c = new HashSet<>(len);
-        for (int i : nums1) {
-            n1c.add(i);
-        }
-        for (int i : nums2) {
-            n2c.add(i);
-        }
         // n1 要删除的元素
-        int x1 = n1c.size() - len / 2;
+        int n1s = (int) Arrays.stream(nums1).distinct().count();
+        int x1 = n1s - len / 2;
         if (x1 < 0){
             x1 = 0;
         }
         // n2 要删除的元素
-        int x2 = n2c.size() - len / 2;
+        int n2s = (int) Arrays.stream(nums2).distinct().count();
+        int x2 = n2s - len / 2;
         if (x2 < 0){
             x2 = 0;
         }
         // n1，n2 重复元素
-        int scnt;
-        if (n1c.size() < n2c.size()){
-            Set<Integer> ks = new HashSet<>(n1c);
-            ks.retainAll(n2c);
-            scnt = ks.size();
-        } else {
-            HashSet<Integer> ks = new HashSet<>(n2c);
-            ks.retainAll(n1c);
-            scnt = ks.size();
-        }
-        int result = n1c.size() + n2c.size() - scnt;
+        int scnt = (int) (n1s + n2s - (IntStream.concat(Arrays.stream(nums1), Arrays.stream(nums2)).distinct().count()));
+        int result = n1s + n2s - scnt;
         if (!(scnt > x1 && scnt > x2 && x1 + x2 <= scnt)){
             result -= (x2 - scnt + x1);
         }
