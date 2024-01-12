@@ -73,20 +73,19 @@ class Solution {
         if (x2 < 0){
             x2 = 0;
         }
-        Set<Integer> ks = new HashSet<>(n1c);
-        ks.retainAll(new HashSet<>(n2c));
         // n1，n2 重复元素
-        int scnt = ks.size();
-        int result = n1c.size() + n2c.size()  - scnt;
-        if (scnt <= x1 && scnt <= x2){
-            result -= (x1 + x2 - scnt);
-        } else if (scnt > x1 && scnt > x2){
-            if (x1 + x2 > scnt){
-                result -= (x1 + x2 - scnt);
-            }
-        } else if (x1 >= scnt){
-            result -= (x1 - scnt + x2);
+        int scnt;
+        if (n1c.size() < n2c.size()){
+            Set<Integer> ks = new HashSet<>(n1c);
+            ks.retainAll(n2c);
+            scnt = ks.size();
         } else {
+            HashSet<Integer> ks = new HashSet<>(n2c);
+            ks.retainAll(n1c);
+            scnt = ks.size();
+        }
+        int result = n1c.size() + n2c.size() - scnt;
+        if (!(scnt > x1 && scnt > x2 && x1 + x2 <= scnt)){
             result -= (x2 - scnt + x1);
         }
         return result;
