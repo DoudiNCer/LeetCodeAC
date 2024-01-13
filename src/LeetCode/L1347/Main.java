@@ -52,6 +52,9 @@ public class Main {
 
 class Solution {
     public int minSteps(String s, String t) {
+        if (s.equals(t)){
+            return 0;
+        }
         int len = s.length();
         Map<Character, Integer> cnts = new HashMap<>(len);
         for (char c : s.toCharArray()) {
