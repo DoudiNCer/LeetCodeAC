@@ -1,6 +1,6 @@
 package LeetCode.L111;
 
-import java.util.Objects;
+import java.util.LinkedList;
 
 /**
  * 给定一个二叉树，找出其最小深度。
@@ -51,14 +51,27 @@ class Solution {
         if (root == null){
             return 0;
         }
-        if (root.left == null && root.right == null){
-            return 1;
+        LinkedList<TreeNode> list = new LinkedList<>();
+        list.add(root);
+        boolean ok = false;
+        int result = 0;
+        while (!ok && !list.isEmpty()){
+            result++;
+            LinkedList<TreeNode> tmp = new LinkedList<>();
+            for (TreeNode t : list) {
+                if (t.left == null && t.right == null){
+                    ok = true;
+                    break;
+                }
+                if (t.left != null){
+                    tmp.add(t.left);
+                }
+                if (t.right != null){
+                    tmp.add(t.right);
+                }
+            }
+            list = tmp;
         }
-        if (root.left != null && root.right != null){
-            int lh = minDepth(root.left);
-            int rh = minDepth(root.right);
-            return Math.min(lh, rh) + 1;
-        }
-        return minDepth(Objects.requireNonNullElseGet(root.left, () -> root.right)) + 1;
+        return result;
     }
 }
