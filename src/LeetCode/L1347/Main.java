@@ -52,35 +52,17 @@ public class Main {
 
 class Solution {
     public int minSteps(String s, String t) {
-        if (s.equals(t)){
-            return 0;
+        int[] cnt = new int[26];
+        for(char c: s.toCharArray()) {
+            cnt[c-'a']++;
         }
-        int len = s.length();
-        Map<Character, Integer> cnts = new HashMap<>(len);
-        for (char c : s.toCharArray()) {
-            Integer cnt = cnts.get(c);
-            if (cnt == null){
-                cnt = 1;
-            } else {
-                cnt++;
-            }
-            cnts.put(c, cnt);
-        }
-        for (char c : t.toCharArray()) {
-            Integer cnt = cnts.get(c);
-            if (cnt != null){
-                cnt--;
-                cnts.put(c, cnt);
+        int count = 0;
+        for(char ch: t.toCharArray()) {
+            cnt[ch-'a']--;
+            if(cnt[ch-'a'] < 0) {
+                count++;
             }
         }
-        int p = 0, n = 0;
-        for (Integer v : cnts.values()) {
-            if (v > 0){
-                p += v;
-            } else if (v < 0){
-                n -= v;
-            }
-        }
-        return Math.max(p, n);
+        return count;
     }
 }
