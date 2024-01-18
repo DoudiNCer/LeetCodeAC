@@ -57,13 +57,19 @@ public class Main {
 class Solution {
     public long minimumRemoval(int[] beans) {
         int len = beans.length;
+        if (len == 1){
+            return 0;
+        }
         Arrays.sort(beans);
         long sum = 0;
         for (int bean : beans) {
             sum += bean;
         }
-        long min = Long.MAX_VALUE;
-        for (int i = 0; i < len; i++){
+        long min = sum - (long) beans[0] * len;
+        for (int i = 1; i < len; i++){
+            if (beans[i] == beans[i - 1]){
+                continue;
+            }
             long cnt = sum - ((long) beans[i] * (len - i));
             if (cnt < min){
                 min = cnt;
