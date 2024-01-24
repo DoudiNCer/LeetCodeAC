@@ -60,9 +60,7 @@ class Solution {
             n++;
         }
         int m = n;
-        if(n > 0){
-            n = n * (n - 1) / 2;
-        }
+        n = n * (n - 1) / 2;
         int[] result = new int[num_people];
         for (int i = 0; i < num_people; i++){
             if (candies > 0){
