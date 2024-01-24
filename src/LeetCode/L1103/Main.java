@@ -55,11 +55,13 @@ class Solution {
     public int[] distributeCandies(int candies, int num_people) {
         int n = 0;
         int triangle = num_people * (num_people + 1) / 2;
-        while (candies - triangle - num_people * num_people * n >= 0){
-            candies = candies - triangle - num_people * num_people * n;
+        int m = triangle;
+        while (candies - m >= 0){
+            candies -= m;
             n++;
+            m = triangle + num_people * num_people * n;
         }
-        int m = n;
+        m = n;
         n = n * (n - 1) / 2;
         int[] result = new int[num_people];
         for (int i = 0; i < num_people; i++){
