@@ -37,14 +37,19 @@ public class Main {
 
 class Solution {
     public int maxSumAfterPartitioning(int[] arr, int k) {
-        int len = arr.length;
-        int[] dp = new int[len];
         int max = 0;
-        for (int i = 0; i < Math.min(k, len); i++){
+        if (arr.length <= k){
+            for (int i : arr) {
+                max = Math.max(i, max);
+            }
+            return max * arr.length;
+        }
+        int[] dp = new int[arr.length];
+        for (int i = 0; i < k; i++){
             max = Math.max(max, arr[i]);
             dp[i] = max * (i + 1);
         }
-        for (int i = k; i < len; i++){
+        for (int i = k; i < arr.length; i++){
             max = 0;
             int maxc = 0;
             for (int j = 0; j < k; j++){
@@ -53,6 +58,6 @@ class Solution {
             }
             dp[i] = max;
         }
-        return dp[len - 1];
+        return dp[arr.length - 1];
     }
 }
