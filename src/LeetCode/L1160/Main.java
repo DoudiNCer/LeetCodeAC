@@ -1,8 +1,5 @@
 package LeetCode.L1160;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 给你一份『词汇表』（字符串数组） words 和一张『字母表』（字符串） chars。
  *
@@ -43,16 +40,10 @@ public class Main {
 }
 
 class Solution {
-    private final Map<Character, Integer> cnts = new HashMap<>();
+    private final int[] cnts = new int[26];
     public int countCharacters(String[] words, String chars) {
         for (char c : chars.toCharArray()) {
-            Integer cnt = cnts.get(c);
-            if (cnt == null){
-                cnt = 1;
-            } else {
-                cnt++;
-            }
-            cnts.put(c, cnt);
+            cnts[c - 'a']++;
         }
         int result = 0;
         for (String word : words) {
@@ -64,16 +55,12 @@ class Solution {
     }
 
     private boolean canForm(String word){
-        Map<Character, Integer> cs = new HashMap<>(cnts);
+        int[] cs = cnts.clone();
         for (char c : word.toCharArray()) {
-            Integer cnt = cs.get(c);
-            if (cnt == null) {
+            if (cs[c - 'a'] < 1){
                 return false;
-            }else if (cnt == 1){
-                cs.remove(c);
             } else {
-                cnt--;
-                cs.put(c, cnt);
+                cs[c - 'a']--;
             }
         }
         return true;
