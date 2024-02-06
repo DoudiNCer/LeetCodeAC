@@ -41,6 +41,12 @@ public class Main {
 
 class Solution {
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        if (word1.length == 0 && word2.length == 0){
+            return true;
+        }
+        if (word1.length == 0 || word2.length == 0){
+            return false;
+        }
         StringBuilder sb1 = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         for (String s : word1) {
