@@ -1,9 +1,5 @@
 package LeetCode.L1662;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
-
 /**
  * 给你两个字符串数组 word1 和 word2 。如果两个数组表示的字符串相同，返回 true ；否则，返回 false 。
  *
@@ -45,19 +41,14 @@ public class Main {
 
 class Solution {
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
-        Deque<Character> queue = new LinkedList<>();
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         for (String s : word1) {
-            for (char c : s.toCharArray()) {
-                queue.addLast(c);
-            }
+            sb1.append(s);
         }
         for (String s : word2) {
-            for (char c : s.toCharArray()) {
-                if (queue.isEmpty() || queue.pollFirst() != c){
-                    return false;
-                }
-            }
+            sb2.append(s);
         }
-        return queue.isEmpty();
+        return sb1.toString().equals(sb2.toString());
     }
 }
