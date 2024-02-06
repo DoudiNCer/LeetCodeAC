@@ -31,7 +31,8 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-
+        Solution s = new Solution();
+        System.out.println("s.groupAnagrams(new String[]{\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"}) = " + s.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"}));
     }
 }
 
@@ -39,7 +40,9 @@ class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> resx = new HashMap<>();
         for (String str : strs) {
-            String s = hashStr(str);
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String s = new String(chars);
             if (resx.containsKey(s)){
                 resx.get(s).add(str);
             } else {
@@ -49,13 +52,5 @@ class Solution {
             }
         }
         return new ArrayList<>(resx.values());
-    }
-
-    private String hashStr(String str){
-        Map<Character, Integer> strmap = new TreeMap<>();
-        for (char c : str.toCharArray()) {
-            strmap.put(c, strmap.get(c) == null ? 1 : strmap.get(c) + 1);
-        }
-        return strmap.toString();
     }
 }
