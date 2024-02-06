@@ -1,8 +1,5 @@
 package LeetCode.L55;
 
-import javax.swing.*;
-import java.util.Arrays;
-
 /**
  * 给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
  *
@@ -40,20 +37,13 @@ public class Main {
 
 class Solution {
     public boolean canJump(int[] nums) {
-        int len = nums.length;
-        if (len < 2){
-            return true;
-        }
-        if (nums[0] == 0){
-            return false;
-        }
-        int[] dp = new int[len];
-        dp[0] = nums[0];
-        for (int i = 1; i < len - 1; i++){
-            dp[i] = Math.max(dp[i - 1] - 1, nums[i]);
-            if (dp[i] == 0){
+        int i = 0;
+        int dp = 0;
+        while (i < nums.length - 1){
+            dp = Math.max(dp - 1, nums[i]);
+            if (dp < 1){
                 return false;
-            }
+            } else i++;
         }
         return true;
     }
