@@ -1,6 +1,5 @@
 package LeetCode.L2610;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -50,7 +49,6 @@ public class Main {
 
 class Solution {
     public List<List<Integer>> findMatrix(int[] nums) {
-        int len = 0;
         Map<Integer, Integer> cnts = new HashMap<>();
         for (int num : nums) {
             Integer cnt = cnts.get(num);
@@ -58,13 +56,12 @@ class Solution {
                 cnt = 1;
             } else {
                 cnt++;
-                len = Math.max(len, cnt);
             }
             cnts.put(num, cnt);
         }
         List<List<Integer>> result = new LinkedList<>();
         while (!cnts.isEmpty()){
-            List<Integer> r = new ArrayList<>(cnts.size());
+            List<Integer> r = new LinkedList<>();
             for (Iterator<Integer> i = cnts.keySet().iterator();i.hasNext();){
                 Integer key = i.next();
                 r.add(key);
