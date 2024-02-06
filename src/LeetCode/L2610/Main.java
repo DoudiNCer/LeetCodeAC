@@ -2,6 +2,7 @@ package LeetCode.L2610;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -57,25 +58,22 @@ class Solution {
                 cnt = 1;
             } else {
                 cnt++;
+                len = Math.max(len, cnt);
             }
-            len = Math.max(len, cnt);
             cnts.put(num, cnt);
         }
-        List<List<Integer>> result = new ArrayList<>(len);
+        List<List<Integer>> result = new LinkedList<>();
         while (!cnts.isEmpty()){
             List<Integer> r = new ArrayList<>(cnts.size());
-            List<Integer> del = new LinkedList<>();
-            for (Integer key : cnts.keySet()) {
+            for (Iterator<Integer> i = cnts.keySet().iterator();i.hasNext();){
+                Integer key = i.next();
                 r.add(key);
                 Integer cnt = cnts.get(key);
                 if (cnt == 1){
-                    del.add(key);
+                    i.remove();
                 } else {
                     cnts.put(key, cnt - 1);
                 }
-            }
-            for (Integer key : del) {
-                cnts.remove(key);
             }
             result.add(r);
         }
