@@ -1,8 +1,6 @@
 package LeetCode.L451;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 给定一个字符串 s ，根据字符出现的 频率 对其进行 降序排序 。一个字符出现的 频率 是它出现在字符串中的次数。
@@ -45,30 +43,28 @@ public class Main {
 
 class Solution {
     public String frequencySort(String s) {
-        Map<Character, Integer> cnts = new HashMap<>();
+        int[][] cntArray = new int[62][2];
         for (char c : s.toCharArray()) {
-            Integer cnt = cnts.get(c);
-            if (cnt == null){
-                cnt = 1;
-            } else {
-                cnt++;
-            }
-            cnts.put(c, cnt);
-        }
-        int[][] cntArray = new int[cnts.size()][2];
-        {
-            int i = 0;
-            for (Character c : cnts.keySet()) {
-                cntArray[i][0] = c;
-                cntArray[i][1] = cnts.get(c);
-                i++;
-            }
+            int x = getCharHash(c);
+            cntArray[x][0] = c;
+            cntArray[x][1]++;
         }
         Arrays.sort(cntArray, (a, b) -> b[1] - a[1]);
         StringBuilder sb = new StringBuilder();
         for (int[] lcnt : cntArray) {
-            sb.append(String.valueOf((char) lcnt[0]).repeat(Math.max(0, lcnt[1])));
+            if (lcnt[0] != 0){
+                sb.append(String.valueOf((char) lcnt[0]).repeat(Math.max(0, lcnt[1])));
+            }
         }
         return sb.toString();
+    }
+    private int getCharHash(char c){
+        if (c >= 'a'){
+            return c - 'a' + 36;
+        } else if (c >= 'A'){
+            return c - 'A' + 10;
+        } else {
+            return c - '0';
+        }
     }
 }
