@@ -24,12 +24,7 @@ public class Main {
 
 class Solution {
     public boolean isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
-        int dx = Math.abs(sx - fx);
-        int dy = Math.abs(sy - fy);
-        int dt = Math.max(dx, dy);
-        if (dt > t || (t == 1 && dt == 0)){
-            return false;
-        }
-        return true;
+        int dt = Math.max(Math.abs(sx - fx), Math.abs(sy - fy));
+        return dt <= t && (t != 1 || dt != 0);
     }
 }
