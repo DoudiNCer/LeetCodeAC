@@ -34,11 +34,16 @@ public class Main {
 
 class Solution {
     public int integerBreak(int n) {
-        int[] dp = new int[n + 1];
-        for (int i = 2; i <= n; i++){
-            int t = i >> 1;
-            dp[i] = Math.max(Math.max(t, dp[t]) * Math.max(i - t, dp[i - t]), Math.max(t - 1, dp[t - 1]) * Math.max(i - t + 1, dp[i - t + 1]));
+        if (n == 2)
+            return 1;
+        if (n == 3)
+            return 2;
+        int result = 1;
+        while (n > 4) {
+            n -= 3;
+            result *= 3;
         }
-        return dp[n];
+        result *= n;
+        return result;
     }
 }
