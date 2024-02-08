@@ -37,11 +37,7 @@ class Solution {
         int[] dp = new int[n + 1];
         for (int i = 2; i <= n; i++){
             int t = i >> 1;
-            if ((i & 1) == 0){
-                dp[i] = Math.max(Math.max(t, dp[t]) * Math.max(t, dp[t]), Math.max(t - 1, dp[t - 1]) * Math.max(t + 1, dp[t + 1]));
-            } else {
-                dp[i] = Math.max(Math.max(t, dp[t]) * Math.max(i - t, dp[i - t]), Math.max(t - 1, dp[t - 1]) * Math.max(i - t + 1, dp[i - t + 1]));
-            }
+            dp[i] = Math.max(Math.max(t, dp[t]) * Math.max(i - t, dp[i - t]), Math.max(t - 1, dp[t - 1]) * Math.max(i - t + 1, dp[i - t + 1]));
         }
         return dp[n];
     }
