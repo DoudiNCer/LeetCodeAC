@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 给你一个餐馆信息数组 restaurants，其中  restaurants[i] = [idi, ratingi, veganFriendlyi, pricei, distancei]。你必须使用以下三个过滤器来过滤这些餐馆信息。
@@ -57,13 +56,13 @@ public class Main {
 
 class Solution {
     public List<Integer> filterRestaurants(int[][] restaurants, int veganFriendly, int maxPrice, int maxDistance) {
-        Stream<int[]> stream = Arrays.stream(restaurants)
-                                    .filter(r -> r[3] <= maxPrice)
-                                    .filter(r -> r[4] <= maxDistance);
-        if (veganFriendly != 0){
-            stream = stream.filter(r -> r[2] != 0);
-        }
-        stream = stream.sorted(Comparator.comparingInt((ToIntFunction<int[]>) value -> -value[1]).thenComparingInt(value -> -value[0]));
-        return stream.map(a -> a[0]).collect(Collectors.toList());
+        return Arrays.stream(restaurants)
+                .filter(r -> r[3] <= maxPrice)
+                .filter(r -> r[4] <= maxDistance)
+                .filter(r -> (veganFriendly == 0 || r[2] == 1))
+                .sorted(Comparator
+                        .comparingInt((ToIntFunction<int[]>) value -> -value[1])
+                        .thenComparingInt(value -> -value[0]))
+                .map(a -> a[0]).collect(Collectors.toList());
     }
 }
