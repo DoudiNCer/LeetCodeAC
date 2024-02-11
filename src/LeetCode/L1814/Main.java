@@ -40,7 +40,6 @@ public class Main {
 
 class Solution {
     public int countNicePairs(int[] nums) {
-        long result = 0;
         Map<Integer, Integer> cnts = new HashMap<>();
         for (int num : nums) {
             int rd = revDiff(num);
@@ -48,13 +47,16 @@ class Solution {
             if (cnt == null){
                 cnt = 1;
             } else {
-                result += cnt;
-                result %= 1000000007L;
+
                 cnt++;
             }
             cnts.put(rd, cnt);
         }
-        return (int) result;
+        long result = 0;
+        for (Integer value : cnts.values()) {
+            result += (long) value * (value - 1) / 2;
+        }
+        return (int) (result % 1000000007);
     }
     private int revDiff(int x){
         int rev = 0, res = x;
