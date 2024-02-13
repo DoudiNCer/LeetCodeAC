@@ -28,9 +28,9 @@ public class Main {
 class Solution {
     public int numberOfBeams(String[] bank) {
         int result = 0;
-        int p = 0, q;
+        int p = 0;
         for (String s : bank) {
-            q = 0;
+            int q = 0;
             for (char c : s.toCharArray()) {
                 if (c == '1'){
                     q++;
