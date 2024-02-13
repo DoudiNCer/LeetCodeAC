@@ -30,7 +30,12 @@ class Solution {
         int result = 0;
         int p = 0, q;
         for (String s : bank) {
-            q = s.replace("0", "").length();
+            q = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '1'){
+                    q++;
+                }
+            }
             if (q == 0){
                 continue;
             }
