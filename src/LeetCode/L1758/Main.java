@@ -42,14 +42,12 @@ public class Main {
 
 class Solution {
     public int minOperations(String s) {
-        int p = 0, n = 0;
+        int cnt = 0;
         for (int i = 0; i < s.length(); i++) {
             if ((i & 1) == (s.charAt(i) - '0')){
-                n++;
-            } else {
-                p++;
+                cnt++;
             }
         }
-        return Math.min(p, n);
+        return Math.min(cnt, s.length() - cnt);
     }
 }
