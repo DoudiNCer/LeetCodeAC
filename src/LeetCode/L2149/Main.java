@@ -49,20 +49,15 @@ public class Main {
 class Solution {
     public int[] rearrangeArray(int[] nums) {
         int[] result = new int[nums.length];
-        int i = 0, p = 0, n = 0;
-        while (i < nums.length) {
-            while (nums[p] < 0) {
-                p++;
+        int p = 0, n = 1;
+        for (int num : nums) {
+            if (num > 0){
+                result[p] = num;
+                p += 2;
+            } else {
+                result[n] = num;
+                n += 2;
             }
-            result[i] = nums[p];
-            p++;
-            i++;
-            while (nums[n] > 0){
-                n++;
-            }
-            result[i] = nums[n];
-            n++;
-            i++;
         }
         return result;
     }
