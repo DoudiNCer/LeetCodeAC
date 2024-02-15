@@ -35,17 +35,14 @@ public class Main {
 class Solution {
     public int[] sortArrayByParity(int[] nums) {
         int[] result = new int[nums.length];
-        int p = 0;
+        int ep = 0, op = nums.length - 1;
         for (int num : nums) {
-            if ((num & 1) == 0){
-                result[p] = num;
-                p++;
-            }
-        }
-        for (int num : nums) {
-            if ((num & 1) == 1){
-                result[p] = num;
-                p++;
+            if ((num % 2) == 0){
+                result[ep] = num;
+                ep++;
+            } else {
+                result[op] = num;
+                op--;
             }
         }
         return result;
