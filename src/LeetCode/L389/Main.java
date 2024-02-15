@@ -42,12 +42,11 @@ class Solution {
         for (char c : s.toCharArray()) {
             cnts[c - 'a']--;
         }
-        char result = 'a';
         for (int i = 0; i < cnts.length; i++) {
             if (cnts[i] == 1){
-                return (char) (result + i);
+                return (char) ('a' + i);
             }
         }
-        return result;
+        return 0;
     }
 }
