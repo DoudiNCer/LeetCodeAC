@@ -39,14 +39,20 @@ public class Main {
 
 class Solution {
     public boolean isMonotonic(int[] nums) {
-        boolean mi = true, md = true;
+        int status = 0;
         for (int i = 1; i < nums.length; i++){
             if (nums[i] > nums[i - 1]){
-                md = false;
+                if (status < 0){
+                    return false;
+                }
+                status = 1;
             } else if (nums[i] < nums[i - 1]) {
-                mi = false;
+                if (status > 0){
+                    return false;
+                }
+                status = -1;
             }
         }
-        return md || mi;
+        return true;
     }
 }
