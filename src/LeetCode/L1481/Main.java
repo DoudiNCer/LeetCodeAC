@@ -1,5 +1,7 @@
 package LeetCode.L1481;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +49,16 @@ class Solution {
             cnts.put(i, cnt);
         }
         int result = cnts.size();
-        for (Integer cnt : cnts.values().stream().sorted().toList()) {
+        ArrayList<Integer> cntArray = new ArrayList<>(cnts.values());
+        cntArray.sort(Comparator.comparingInt(a -> a));
+        for (Integer cnt : cntArray) {
             if (k >= cnt){
-                result--;
                 k -= cnt;
+                result--;
             } else {
                 return result;
             }
         }
-        return 0;
+        return result;
     }
 }
