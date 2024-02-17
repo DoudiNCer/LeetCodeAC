@@ -1,5 +1,6 @@
 package LeetCode.L429;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,23 +47,19 @@ class Solution {
         if (root == null){
             return result;
         }
-        List<Node> preLine = new LinkedList<>();
-        preLine.add(root);
-        while (!preLine.isEmpty()){
-            List<Integer> lineResult = new LinkedList<>();
-            List<Node> nextLine = new LinkedList<>();
-            for (Node node : preLine) {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> lineResult = new ArrayList<>(size);
+            for (int i = 0; i < size; i++){
+                Node node = queue.removeFirst();
                 lineResult.add(node.val);
-                if (node.children != null){
-                    for (Node child : node.children) {
-                        if (child != null){
-                            nextLine.add(child);
-                        }
-                    }
+                if (node.children != null && !node.children.isEmpty()){
+                    queue.addAll(node.children);
                 }
             }
             result.add(lineResult);
-            preLine = nextLine;
         }
         return result;
     }
