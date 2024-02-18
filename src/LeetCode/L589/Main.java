@@ -1,5 +1,7 @@
 package LeetCode.L589;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ class Solution {
 
     public List<Integer> preorder(Node root) {
         result = new LinkedList<>();
-        RDP(root);
+        NRPO(root);
         return result;
     }
 
@@ -57,6 +59,21 @@ class Solution {
         result.add(node.val);
         for (Node child : node.children) {
             RDP(child);
+        }
+    }
+
+    private void NRPO(Node root){
+        if (root == null){
+            return;
+        }
+        Deque<Node> stack = new ArrayDeque<>();
+        stack.add(root);
+        while (!stack.isEmpty()){
+            Node node = stack.pop();
+            result.add(node.val);
+            for (int i = node.children.size() - 1; i >= 0; i--) {
+                stack.push(node.children.get(i));
+            }
         }
     }
 }
