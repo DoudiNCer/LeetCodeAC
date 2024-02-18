@@ -42,19 +42,21 @@ class Node {
 */
 
 class Solution {
+    private List<Integer> result;
+
     public List<Integer> preorder(Node root) {
-        return RDP(root);
+        result = new LinkedList<>();
+        RDP(root);
+        return result;
     }
 
-    private List<Integer> RDP(Node node){
-        List<Integer> result = new LinkedList<>();
+    private void RDP(Node node){
         if (node == null){
-            return result;
+            return;
         }
         result.add(node.val);
         for (Node child : node.children) {
-            result.addAll(RDP(child));
+            RDP(child);
         }
-        return result;
     }
 }
