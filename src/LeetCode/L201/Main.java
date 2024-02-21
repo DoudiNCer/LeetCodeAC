@@ -34,19 +34,12 @@ public class Main {
 
 class Solution {
     public int rangeBitwiseAnd(int left, int right) {
-        char[] lchar = Integer.toBinaryString(left).toCharArray();
-        char[] rchar = Integer.toBinaryString(right).toCharArray();
-        if (lchar.length < rchar.length){
-            return 0;
+        int count = 0;
+        while(left != right){
+            left >>= 1;
+            right >>= 1;
+            count++;
         }
-        int i = 0;
-        while (i < rchar.length && lchar[i] == rchar[i]){
-            i++;
-        }
-        while (i < rchar.length){
-            rchar[i] = '0';
-            i++;
-        }
-        return Integer.parseInt(new String(rchar), 2);
+        return left << count;
     }
 }
