@@ -47,13 +47,15 @@ public class Main {
 
 class Solution {
     public int findJudge(int n, int[][] trust) {
-        int[][] state = new int[n][2];
+        int[] state = new int[n];
         for (int[] t : trust) {
-             state[t[0] - 1][0]++;
-             state[t[1] - 1][1]++;
+            state[t[0] - 1] = -1;
+            if (state[t[1] - 1] != -1){
+                state[t[1] - 1]++;
+            }
         }
         for (int i = 0; i < state.length; i++) {
-            if (state[i][0] == 0 && state[i][1] == n - 1){
+            if (state[i] == n - 1){
                 return i + 1;
             }
         }
