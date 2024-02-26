@@ -40,27 +40,22 @@ public class Main {
 
 class Solution {
     public int maxProductDifference(int[] nums) {
-        int[] abcd = new int[4];
-        abcd[0] = nums[0];
-        abcd[1] = nums[1];
-        abcd[2] = nums[2];
-        abcd[3] = nums[3];
-        Arrays.sort(abcd);
+        Arrays.sort(nums, 0, 4);
         for (int i = 4; i < nums.length; i++){
-            if (nums[i] < abcd[1]){
-                abcd[1] = nums[i];
-                if (abcd[0] > abcd[1]){
-                    abcd[1] = abcd[0];
-                    abcd[0] = nums[i];
+            if (nums[i] < nums[1]){
+                nums[1] = nums[i];
+                if (nums[0] > nums[1]){
+                    nums[1] = nums[0];
+                    nums[0] = nums[i];
                 }
-            } else if (nums[i] > abcd[2]){
-                abcd[2] = nums[i];
-                if (abcd[2] > abcd[3]){
-                    abcd[2] = abcd[3];
-                    abcd[3] = nums[i];
+            } else if (nums[i] > nums[2]){
+                nums[2] = nums[i];
+                if (nums[2] > nums[3]){
+                    nums[2] = nums[3];
+                    nums[3] = nums[i];
                 }
             }
         }
-        return abcd[3] * abcd[2] - abcd[1] * abcd[0];
+        return nums[3] * nums[2] - nums[1] * nums[0];
     }
 }
