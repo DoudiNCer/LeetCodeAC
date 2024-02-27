@@ -58,21 +58,12 @@ class Solution {
         int[][] data = new int[arr.length][2];
         for (int i = 0; i < arr.length; i++) {
             data[i][0] = arr[i];
-            data[i][1] = cntOf1(arr[i]);
+            data[i][1] = Integer.bitCount(arr[i]);
         }
         Arrays.sort(data, Comparator.comparingInt((ToIntFunction<int[]>) a -> a[1]).thenComparingInt(a -> a[0]));
         for (int i = 0; i < arr.length; i++) {
             arr[i] = data[i][0];
         }
         return arr;
-    }
-
-    private int cntOf1(int num){
-        int result = 0;
-        while (num > 0){
-            result += num & 1;
-            num >>= 1;
-        }
-        return result;
     }
 }
