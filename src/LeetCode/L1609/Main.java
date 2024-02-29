@@ -1,6 +1,6 @@
 package LeetCode.L1609;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -99,11 +99,11 @@ class Solution {
             return true;
         }
         boolean ed = false;
-        List<TreeNode> workLine = new ArrayList<>();
+        List<TreeNode> workLine = new LinkedList<>();
         workLine.add(root);
         while (!workLine.isEmpty()){
             ed = !ed;
-            List<TreeNode> nextLine = new ArrayList<>();
+            List<TreeNode> nextLine = new LinkedList<>();
             if (ed){
                 int last = Integer.MIN_VALUE;
                 for (TreeNode node : workLine) {
