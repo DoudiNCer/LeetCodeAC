@@ -44,17 +44,6 @@ public class Main {
 
 class Solution {
     public int numberOfMatches(int n) {
-        int result = 0;
-        while (n > 1){
-            if (n % 2 == 0){
-                n >>= 1;
-                result += n;
-            } else {
-                n >>= 1;
-                result += n;
-                n++;
-            }
-        }
-        return result;
+        return n - 1;
     }
 }
