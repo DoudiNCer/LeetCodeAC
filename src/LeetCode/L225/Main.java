@@ -1,7 +1,7 @@
 package LeetCode.L225;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Queue;
 
 /**
  * 请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通栈的全部四种操作（push、top、pop 和 empty）。
@@ -53,37 +53,29 @@ public class Main {
 }
 
 class MyStack {
-    private Deque<Integer> q0;
-    private Deque<Integer> q1;
+    private Queue<Integer> queue;
 
     public MyStack() {
-        q0 = new ArrayDeque<>();
-        q1 = new ArrayDeque<>();
+        queue = new ArrayDeque<>();
     }
 
     public void push(int x) {
-        q0.add(x);
+        queue.add(x);
+        for (int i = 1; i < queue.size(); i++){
+            queue.add(queue.remove());
+        }
     }
 
     public int pop() {
-        while (q0.size() > 1) {
-            q1.add(q0.remove());
-        }
-        Deque<Integer> qt = q1;
-        q1 = q0;
-        q0 = qt;
-        return q1.remove();
+        return queue.remove();
     }
 
     public int top() {
-        while (q0.size() > 1) {
-            q1.add(q0.remove());
-        }
-        return q0.getFirst();
+        return queue.peek();
     }
 
     public boolean empty() {
-        return q0.isEmpty();
+        return queue.isEmpty();
     }
 }
 
