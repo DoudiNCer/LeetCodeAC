@@ -50,23 +50,31 @@ public class Main {
  * }
  */
 class Solution {
+    private StringBuilder sb;
+
     public String tree2str(TreeNode root) {
-        if (root == null){
+        if (root == null) {
             return "";
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(root.val);
-        String lc = tree2str(root.left);
-        if (lc.length() > 0){
-            sb.append("(").append(lc).append(")");
-        }
-        String rc = tree2str(root.right);
-        if (rc.length() > 0){
-            if (lc.length() == 0){
-                sb.append("()");
-            }
-            sb.append("(").append(rc).append(")");
-        }
+        sb = new StringBuilder();
+        RT2S(root);
         return sb.toString();
+    }
+
+    private void RT2S(TreeNode node) {
+        sb.append(node.val);
+        if (node.left == null && node.right == null) {
+            return;
+        }
+        sb.append("(");
+        if (node.left != null){
+            RT2S(node.left);
+        }
+        sb.append(")");
+        if (node.right != null) {
+            sb.append("(");
+            RT2S(node.right);
+            sb.append(")");
+        }
     }
 }
