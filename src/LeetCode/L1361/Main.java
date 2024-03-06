@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * 二叉树上有 n 个节点，按从 0 到 n - 1 编号，其中节点 i 的两个子节点分别是 leftChild[i] 和 rightChild[i]。
@@ -59,6 +60,8 @@ public class Main {
 }
 
 class Solution {
+    private int[] lc;
+    private int[] rc;
     public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
         int[] parents = new int[n];
         int cnt = 0;
@@ -84,28 +87,22 @@ class Solution {
         if (n != cnt + 1){
             return false;
         }
-        int parant = 0;
+        int root = -1;
         for (int i = 0; i < parents.length; i++) {
             if (parents[i] == 0){
-                parant = i;
+                root = i;
                 break;
             }
         }
-        Set<Integer> nodes = new HashSet<>(n);
-        Queue<Integer> queue = new ArrayDeque<>(n);
-        queue.add(parant);
-        nodes.add(parant);
-        while (!queue.isEmpty()){
-            int para = queue.poll();
-            if (leftChild[para] != -1 && !nodes.contains(leftChild[para])){
-                nodes.add(leftChild[para]);
-                queue.add(leftChild[para]);
-            }
-            if (rightChild[para] != -1 && !nodes.contains(rightChild[para])){
-                nodes.add(rightChild[para]);
-                queue.add(rightChild[para]);
-            }
+        lc = leftChild;
+        rc = rightChild;
+        return countTheTree(root) == n;
+    }
+
+    private int countTheTree(int root){
+        if (root == -1){
+            return 0;
         }
-        return nodes.size() == n;
+        return 1 + countTheTree(lc[root]) + countTheTree(rc[root]);
     }
 }
