@@ -1,12 +1,5 @@
 package LeetCode.L1361;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
-import java.util.regex.Pattern;
-
 /**
  * 二叉树上有 n 个节点，按从 0 到 n - 1 编号，其中节点 i 的两个子节点分别是 leftChild[i] 和 rightChild[i]。
  *
@@ -63,33 +56,32 @@ class Solution {
     private int[] lc;
     private int[] rc;
     public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
-        int[] parents = new int[n];
+        boolean[] parents = new boolean[n];
         int cnt = 0;
         for (int i = 0; i < n; i++){
             if (leftChild[i] != -1){
-                if (parents[leftChild[i]] == 0){
-                    parents[leftChild[i]] = i + 1;
+                if (!parents[leftChild[i]]){
+                    parents[leftChild[i]] = true;
                     cnt++;
                 } else {
                     return false;
                 }
             }
             if (rightChild[i] != -1){
-                if (parents[rightChild[i]] == 0){
-                    parents[rightChild[i]] = i + 1;
+                if (!parents[rightChild[i]]){
+                    parents[rightChild[i]] = true;
                     cnt++;
                 } else {
                     return false;
                 }
             }
         }
-        System.out.println("parents = " + Arrays.toString(parents));
         if (n != cnt + 1){
             return false;
         }
         int root = -1;
         for (int i = 0; i < parents.length; i++) {
-            if (parents[i] == 0){
+            if (!parents[i]){
                 root = i;
                 break;
             }
