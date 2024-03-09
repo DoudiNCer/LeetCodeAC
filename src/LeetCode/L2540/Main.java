@@ -36,23 +36,13 @@ class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
         int p1 = 0, p2 = 0;
         while (p1 < nums1.length && p2 < nums2.length){
-            while (p1 < nums1.length && nums1[p1] < nums2[p2]){
+            if (nums1[p1] == nums2[p2]){
+                return nums1[p1];
+            }
+            if (nums1[p1] < nums2[p2]){
                 p1++;
-            }
-            if (p1 == nums1.length){
-                return -1;
-            }
-            if (nums1[p1] == nums2[p2]){
-                return nums1[p1];
-            }
-            while (p2 < nums2.length && nums1[p1] > nums2[p2]){
+            } else {
                 p2++;
-            }
-            if (p2 == nums2.length){
-                return -1;
-            }
-            if (nums1[p1] == nums2[p2]){
-                return nums1[p1];
             }
         }
         return -1;
