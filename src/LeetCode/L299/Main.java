@@ -1,8 +1,5 @@
 package LeetCode.L299;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 你在和朋友一起玩 猜数字（Bulls and Cows）游戏，该游戏规则如下：
  *
@@ -52,33 +49,23 @@ public class Main {
 
 class Solution {
     public String getHint(String secret, String guess) {
-        int x = 0, len = secret.length();
-        Map<Character, int[]> cnts = new HashMap<>();
+        int x = 0, y = 0, len = secret.length();
+        int[] cnts = new int[10];
         for (int i = 0; i < len; i++){
             char sc = secret.charAt(i);
             char gc = guess.charAt(i);
             if (sc == gc){
                 x++;
             } else {
-                int[] cnt = cnts.get(sc);
-                if (cnt == null){
-                    cnt = new int[]{1, 0};
-                } else {
-                    cnt[0]++;
+                if (cnts[sc - '0'] > 0){
+                    y++;
                 }
-                cnts.put(sc, cnt);
-                cnt = cnts.get(gc);
-                if (cnt == null){
-                    cnt = new int[]{0, 1};
-                } else {
-                    cnt[1]++;
+                if (cnts[gc - '0'] < 0){
+                    y++;
                 }
-                cnts.put(gc, cnt);
+                cnts[sc - '0']--;
+                cnts[gc - '0']++;
             }
-        }
-        int y = 0;
-        for (int[] value : cnts.values()) {
-            y += Math.min(value[0], value[1]);
         }
         return x + "A" + y + "B";
     }
