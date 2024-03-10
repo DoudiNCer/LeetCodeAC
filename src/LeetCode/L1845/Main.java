@@ -1,8 +1,5 @@
 package LeetCode.L1845;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 /**
  * 请你设计一个管理 n 个座位预约的系统，座位编号从 1 到 n 。
  *
@@ -56,24 +53,33 @@ public class Main {
 }
 
 class SeatManager {
-    private final SortedSet<Integer> set;
+    private final boolean[] status;
+    private int bx;
 
     public SeatManager(int n) {
-        set = new TreeSet<>();
+        status = new boolean[n];
         while (n > 0){
-            set.add(n);
             n--;
+            status[n] = false;
         }
+        bx = 0;
     }
 
     public int reserve() {
-        Integer first = set.first();
-        set.remove(first);
-        return first;
+        int i = bx;
+        while (status[i]){
+            i++;
+        }
+        status[i] = true;
+        bx++;
+        return i + 1;
     }
 
     public void unreserve(int seatNumber) {
-        set.add(seatNumber);
+        status[seatNumber - 1] = false;
+        if (seatNumber - 1 < bx){
+            bx = seatNumber - 1;
+        }
     }
 }
 
