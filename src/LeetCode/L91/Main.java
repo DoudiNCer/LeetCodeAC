@@ -57,16 +57,19 @@ class Solution {
         if (len == 1){
             return 1;
         }
-        int[][] dp = new int[len][2];
-        dp[0][0] = 1;
+        int[] dp = new int[2];
+        dp[0] = 1;
         for (int i = 1; i < len; i++){
+            int d0 = 0, d1 = 0;
             if (s.charAt(i) != '0'){
-                dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
+                d0 = dp[0] + dp[1];
             }
             if (s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) < '7' )){
-                dp[i][1] = dp[i - 1][0];
+                d1 = dp[0];
             }
+            dp[0] = d0;
+            dp[1] = d1;
         }
-        return dp[len - 1][0] + dp[len - 1][1];
+        return dp[0] + dp[1];
     }
 }
