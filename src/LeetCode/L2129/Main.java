@@ -47,8 +47,7 @@ public class Main {
 class Solution {
     public String capitalizeTitle(String title) {
         char[] chars = title.toCharArray();
-        int x = 0;
-        while (x < chars.length){
+        for (int x = 0; x < chars.length; x++){
             int y = x + 1;
             while (y < title.length() && chars[y] != ' '){
                 if (chars[y] < 'a'){
@@ -65,7 +64,7 @@ class Solution {
                     chars[x] += ('a' - 'A');
                 }
             }
-            x = y + 1;
+            x = y;
         }
         return new String(chars);
     }
