@@ -48,15 +48,6 @@ class Solution {
         for (int i = 0; i < order.length(); i++){
             power[order.charAt(i) - 'a'] = i + 1;
         }
-        {
-            int p = order.length();
-            for (int i = 0; i < power.length; i++) {
-                if (power[i] == 0){
-                    power[i]  = p;
-                    p++;
-                }
-            }
-        }
         Character[] schar = new Character[s.length()];
         for (int i = 0; i < schar.length; i++) {
             schar[i] = s.charAt(i);
