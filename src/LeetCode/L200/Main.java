@@ -65,9 +65,6 @@ class Solution {
     }
 
     private void remove(int x, int y) {
-        if (x < 0 || x > m || y < 0 || y > n) {
-            return;
-        }
         grid[x][y] = 0;
         if (y > 0 && grid[x][y - 1] == '1') {
             remove(x, y - 1);
