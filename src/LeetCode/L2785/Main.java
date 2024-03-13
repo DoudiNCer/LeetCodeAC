@@ -1,10 +1,5 @@
 package LeetCode.L2785;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * 给你一个下标从 0 开始的字符串 s ，将 s 中的元素重新 排列 得到新的字符串 t ，它满足：
  *
@@ -43,20 +38,32 @@ public class Main {
 class Solution {
     public String sortVowels(String s) {
         char[] chars = s.toCharArray();
-        List<Character> vchars = new LinkedList<>();
-        List<Integer> vindex = new LinkedList<>();
-        for (int i = 0; i < chars.length; i++){
-            char c = chars[i];
+        int[] vcnts = new int[10];
+        char[] vchars = new char[]{'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o','u'};
+        for (char c : chars) {
             switch (c) {
-                case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' -> {
-                    vchars.add(c);
-                    vindex.add(i);
-                }
+                case 'A' -> vcnts[0]++;
+                case 'E' -> vcnts[1]++;
+                case 'I' -> vcnts[2]++;
+                case 'O' -> vcnts[3]++;
+                case 'U' -> vcnts[4]++;
+                case 'a' -> vcnts[5]++;
+                case 'e' -> vcnts[6]++;
+                case 'i' -> vcnts[7]++;
+                case 'o' -> vcnts[8]++;
+                case 'u' -> vcnts[9]++;
             }
         }
-        vchars.sort(Comparator.comparingInt(a -> a));
-        for (Iterator it1 = vchars.iterator(), it2 = vindex.iterator(); it1.hasNext(); ){
-            chars[(int) it2.next()] = (char) it1.next();
+        for (int i = 0, p = 0; i < chars.length && p < 10; i++){
+            switch (chars[i]) {
+                case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' -> {
+                    while (p < 10 && vcnts[p] == 0) {
+                        p++;
+                    }
+                    chars[i] = vchars[p];
+                    vcnts[p]--;
+                }
+            }
         }
         return new String(chars);
     }
