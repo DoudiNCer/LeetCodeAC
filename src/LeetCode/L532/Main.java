@@ -1,8 +1,7 @@
 package LeetCode.L532;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -52,19 +51,16 @@ class Solution {
     public int findPairs(int[] nums, int k) {
         int result = 0;
         if (k == 0){
-            Map<Integer, Integer> cnts = new HashMap<>();
-            for (int num : nums) {
-                Integer cnt = cnts.get(num);
-                if (cnt == null){
-                    cnt = 1;
-                } else {
-                    cnt++;
+            Arrays.sort(nums);
+            int i = 0;
+            while (i < nums.length){
+                int p = i;
+                i++;
+                while (i < nums.length && nums[i] == nums[p]){
+                    i++;
                 }
-                cnts.put(num, cnt);
-            }
-            for (Integer value : cnts.values()) {
-                if (value > 1){
-                    result ++;
+                if (i > p + 1){
+                    result++;
                 }
             }
         } else {
