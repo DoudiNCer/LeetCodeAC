@@ -36,10 +36,12 @@ public class Main {
 class Solution {
     public int totalHammingDistance(int[] nums) {
         int result = 0;
-        for (int i = 0; i < nums.length; i++){
-            for (int j = i + 1; j < nums.length; j++){
-                result += Integer.bitCount(nums[i] ^ nums[j]);
+        for (int i = 0; i < 32; i++) {
+            int count_ones = 0;
+            for (int num : nums) {
+                count_ones += (num >> i) & 1;
             }
+            result += (count_ones * (nums.length - count_ones));
         }
         return result;
     }
