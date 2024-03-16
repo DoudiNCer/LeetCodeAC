@@ -47,10 +47,9 @@ public class Main {
 
 class Solution {
     public int maxMoves(int[][] grid) {
-        int m = grid.length, n = grid[0].length;
-        int[][] dp = new int[2][m];
-        for (int j = n - 2; j >= 0; j--){
-            for (int i = 0; i < m; i++){
+        int[][] dp = new int[2][grid.length];
+        for (int j = grid[0].length - 2; j >= 0; j--){
+            for (int i = 0; i < grid.length; i++){
                 dp[1][i] = 0;
                 if (i - 1 >= 0 && grid[i][j] < grid[i - 1][j + 1]){
                     dp[1][i] = Math.max(dp[1][i], dp[0][i - 1] + 1);
@@ -58,7 +57,7 @@ class Solution {
                 if (grid[i][j] < grid[i][j + 1]){
                     dp[1][i] = Math.max(dp[1][i], dp[0][i] + 1);
                 }
-                if (i + 1 < m && grid[i][j] < grid[i + 1][j + 1]){
+                if (i + 1 < grid.length && grid[i][j] < grid[i + 1][j + 1]){
                     dp[1][i] = Math.max(dp[1][i], dp[0][i + 1] + 1);
                 }
             }
