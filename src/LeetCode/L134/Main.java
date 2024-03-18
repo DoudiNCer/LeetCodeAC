@@ -52,8 +52,7 @@ class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
         int totgc = 0, mingc = Integer.MAX_VALUE, mingcp = 0;
         for (int i = 0; i < gas.length; i++){
-            int gc = gas[i] - cost[i];
-            totgc += gc;
+            totgc += gas[i] - cost[i];
             if (totgc <= mingc){
                 mingc = totgc;
                 mingcp = i;
