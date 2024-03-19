@@ -55,15 +55,8 @@ class Solution {
             return tasks.length;
         }
         int[] cnts = new int[26];
-        int cnt = 0;
         for (char task : tasks) {
-            if (cnts[task - 'A'] == 0){
-                cnt++;
-            }
             cnts[task - 'A']++;
-        }
-        if (cnt == tasks.length){
-            return cnt;
         }
         Arrays.sort(cnts);
         int result = (cnts[25] - 1) * (n + 1) + 1;
