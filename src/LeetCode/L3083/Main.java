@@ -1,8 +1,5 @@
 package LeetCode.L3083;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * 给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。
  *
@@ -50,19 +47,20 @@ public class Main {
 
 class Solution {
     public boolean isSubstringPresent(String s) {
-        char[] chars = s.toCharArray();
-        Set<Integer> strs = new HashSet<>();
-        for (int i = 1; i < chars.length; i++){
-            if (chars[i - 1] == chars[i]){
+        if (s == null || s.length() < 2) {
+            return false;
+        }
+
+        for (int i = 0; i < s.length() - 1; i++) {
+
+            String str = s.substring(i, i + 2);
+
+
+            if (s.contains(new StringBuilder(str).reverse().toString())) {
                 return true;
             }
-            strs.add((chars[i - 1] << 7) + chars[i]);
         }
-        for (int i = 1; i < chars.length; i++){
-            if (strs.contains((chars[i] << 7) + chars[i - 1])){
-                return true;
-            }
-        }
+
         return false;
     }
 }
