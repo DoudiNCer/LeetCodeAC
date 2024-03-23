@@ -42,15 +42,15 @@ public class Main {
 class Solution {
     public int minFlips(int a, int b, int c) {
         int aab = a & b, aob = a | b, result = 0;
-        while (aob > 0 || c > 0){
-            if ((aob & 1) != (c & 1)){
+        while (a > 0 || b > 0|| c > 0){
+            if (((a & 1) | (b & 1)) != (c & 1)){
                 result++;
-                if ((c & 1) == 0 && (aab & 1) == 1){
+                if ((c & 1) == 0 && ((a & 1) & (b & 1)) == 1){
                     result++;
                 }
             }
-            aab >>= 1;
-            aob >>= 1;
+            a >>= 1;
+            b >>= 1;
             c >>= 1;
         }
         return result;
