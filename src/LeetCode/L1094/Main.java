@@ -1,8 +1,5 @@
 package LeetCode.L1094;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 /**
  * 车上最初有 capacity 个空座位。车 只能 向一个方向行驶（也就是说，不允许掉头或改变方向）
  *
@@ -40,21 +37,15 @@ public class Main {
 
 class Solution {
     public boolean carPooling(int[][] trips, int capacity) {
-        int[][] end = Arrays.copyOf(trips, trips.length);
-        Arrays.sort(trips, Comparator.comparingInt(a -> a[1]));
-        Arrays.sort(end, Comparator.comparingInt(a -> a[2]));
-        int start = trips[0][1], stop = end[end.length - 1][2];
-        int sp = 0, ep = 0, cnt = 0;
-        for (int i = start; i <= stop; i++){
-            while (sp < trips.length && i == trips[sp][1]){
-                cnt += trips[sp][0];
-                sp++;
-            }
-            while (ep < end.length && i == end[ep][2]){
-                cnt -= end[ep][0];
-                ep++;
-            }
-            if (cnt > capacity){
+        int[] cnts = new int[1001];
+        for (int[] trip : trips) {
+            cnts[trip[1]] += trip[0];
+            cnts[trip[2]] -= trip[0];
+        }
+        int count = 0;
+        for (int cnt : cnts) {
+            count += cnt;
+            if (capacity < count){
                 return false;
             }
         }
