@@ -57,42 +57,17 @@ public class Main {
 class Solution {
     public int countWays(int[][] ranges) {
         Arrays.sort(ranges, Comparator.comparingInt(a -> a[0]));
-        int cnt = 0;
+        long result = 1;
         for (int i = 0; i < ranges.length; i++) {
-            System.out.println("i = " + i);
-            if (i == ranges.length - 1){
-                cnt++;
-                continue;
-            }
-            if (ranges[i][1] < ranges[i + 1][0]){
-                cnt++;
-                continue;
-            }
             int maxr = ranges[i][1], ip = i + 1;
             while (ip < ranges.length && ranges[ip][0] <= maxr) {
                 maxr = Math.max(maxr, ranges[ip][1]);
                 ip++;
             }
             i = ip - 1;
-            cnt++;
+            result *= 2;
+            result %= 1000000007;
         }
-        return fastPow(2, cnt);
-    }
-
-    private int fastPow(long a, int n){
-        if (n == 0){
-            return 1;
-        }
-        long result = 1;
-        while (n > 0){
-            if ((n & 1) == 1){
-                result *= a;
-                result %= 1000000007;
-            }
-            a *= a;
-            a %= 1000000007;
-            n >>= 1;
-        }
-        return (int) (result % 1000000007L);
+        return (int) result;
     }
 }
