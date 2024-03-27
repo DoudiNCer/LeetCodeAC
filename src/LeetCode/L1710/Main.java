@@ -1,7 +1,6 @@
 package LeetCode.L1710;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * 请你将一些箱子装在 一辆卡车 上。给你一个二维数组 boxTypes ，其中 boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi] ：
@@ -45,15 +44,15 @@ public class Main {
 
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
-        Arrays.sort(boxTypes, Comparator.comparingInt(a -> -a[1]));
+        Arrays.sort(boxTypes, (a, b) -> (b[1] - a[1]));
         int result = 0;
-        for (int i = 0; i < boxTypes.length && truckSize > 0; i++){
-            if (boxTypes[i][0] > truckSize){
-                result += boxTypes[i][1] * truckSize;
+        for (int[] boxType : boxTypes) {
+            if (boxType[0] >= truckSize){
+                result += boxType[1] * truckSize;
                 break;
             } else {
-                result += boxTypes[i][0] * boxTypes[i][1];
-                truckSize -= boxTypes[i][0];
+                result += boxType[0] * boxType[1];
+                truckSize -= boxType[0];
             }
         }
         return result;
