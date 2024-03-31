@@ -66,7 +66,9 @@ class Solution {
                 maxC = 0;
             }
         }
-        result += solve(start, nums.length - 1);
+        if (minC > 0 && maxC > 0) {
+            result += solve(start, nums.length - 1);
+        }
         return result;
     }
 
