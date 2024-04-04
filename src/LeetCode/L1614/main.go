@@ -44,15 +44,15 @@ func main() {
 
 func maxDepth(s string) int {
 	result := 0
-	stack := []int32{}
+	stack := 0
 	for _, ch := range s {
 		if ch == '(' {
-			stack = append(stack, ch)
+			stack++
 		} else if ch == ')' {
-			stack = stack[0 : len(stack)-1]
+			stack--
 		}
-		if len(stack) > result {
-			result = len(stack)
+		if stack > result {
+			result = stack
 		}
 	}
 	return result
