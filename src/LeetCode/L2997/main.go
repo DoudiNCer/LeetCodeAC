@@ -42,10 +42,9 @@ func main() {
 }
 
 func minOperations(nums []int, k int) int {
-	for i := 1; i < len(nums); i++ {
-		nums[0] ^= nums[i]
+	for _, num := range nums {
+		k ^= num
 	}
-	k ^= nums[0]
 	result := 0
 	for k > 0 {
 		result += k & 1
