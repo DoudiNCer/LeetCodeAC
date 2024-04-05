@@ -55,10 +55,7 @@ func maxAncestorDiff(root *TreeNode) int {
 		result = dfs(root.Left, root.Val, root.Val)
 	}
 	if root.Right != nil {
-		r2 := dfs(root.Right, root.Val, root.Val)
-		if result < r2 {
-			result = r2
-		}
+		result = max(result, dfs(root.Right, root.Val, root.Val))
 	}
 	return result
 }
@@ -67,31 +64,19 @@ func dfs(node *TreeNode, minp int, maxp int) int {
 	result := node.Val - minp
 	if result < 0 {
 		result = -result
+		minp = node.Val
 	}
 	r2 := maxp - node.Val
 	if r2 < 0 {
 		r2 = -r2
-	}
-	if result < r2 {
-		result = r2
-	}
-	if maxp < node.Val {
 		maxp = node.Val
 	}
-	if minp > node.Val {
-		minp = node.Val
-	}
+	result = max(result, r2)
 	if node.Left != nil {
-		r2 = dfs(node.Left, minp, maxp)
-		if result < r2 {
-			result = r2
-		}
+		result = max(result, dfs(node.Left, minp, maxp))
 	}
 	if node.Right != nil {
-		r2 = dfs(node.Right, minp, maxp)
-		if result < r2 {
-			result = r2
-		}
+		result = max(result, dfs(node.Right, minp, maxp))
 	}
 	return result
 }
