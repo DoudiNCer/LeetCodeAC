@@ -76,8 +76,8 @@ func islandPerimeter(grid [][]int) int {
 			result++
 		}
 	}
-	for i := 0; i < len(grid); i++ {
-		for j := 0; j < len(grid[0]); j++ {
+	for i := range grid {
+		for j := range grid[i] {
 			if grid[i][j] == 1 {
 				bfs(i, j)
 			}
