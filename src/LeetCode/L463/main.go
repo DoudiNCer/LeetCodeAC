@@ -42,8 +42,6 @@ func islandPerimeter(grid [][]int) int {
 		if x > 0 {
 			if grid[x-1][y] == 0 {
 				result++
-			} else if grid[x-1][y] == 1 {
-				bfs(x-1, y)
 			}
 		} else {
 			result++
@@ -60,8 +58,6 @@ func islandPerimeter(grid [][]int) int {
 		if y > 0 {
 			if grid[x][y-1] == 0 {
 				result++
-			} else if grid[x][y-1] == 1 {
-				bfs(x, y-1)
 			}
 		} else {
 			result++
