@@ -51,11 +51,9 @@ func main() {
 }
 
 func wonderfulSubstrings(word string) int64 {
-	freq := make(map[int]int)
-	freq[0] = 1
+	freq := map[int]int{0: 1}
 	mask := 0
-	var result int64
-	result = 0
+	var result int64 = 0
 	for _, c := range word {
 		mask ^= 1 << (c - 'a')
 		if fr, ok := freq[mask]; ok {
@@ -67,7 +65,7 @@ func wonderfulSubstrings(word string) int64 {
 				result += int64(fr)
 			}
 		}
-		freq[mask] = freq[mask] + 1
+		freq[mask] += 1
 	}
 	return result
 }
