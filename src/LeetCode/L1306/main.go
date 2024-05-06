@@ -50,17 +50,17 @@ func canReach(arr []int, start int) bool {
 		q := queue[0]
 		if status[q] == 0 {
 			status[q] = 1
-			if q-arr[q] >= 0 {
-				if arr[q-arr[q]] == 0 {
+			if qa := q - arr[q]; qa >= 0 {
+				if arr[qa] == 0 {
 					return true
 				}
-				queue = append(queue, q-arr[q])
+				queue = append(queue, qa)
 			}
-			if q+arr[q] < le {
-				if arr[q+arr[q]] == 0 {
+			if qa := q + arr[q]; qa < le {
+				if arr[qa] == 0 {
 					return true
 				}
-				queue = append(queue, q+arr[q])
+				queue = append(queue, qa)
 			}
 			cnt--
 		}
