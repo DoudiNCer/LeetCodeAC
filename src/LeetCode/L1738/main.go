@@ -1,8 +1,8 @@
 package main
 
 import (
-	"container/heap"
 	"fmt"
+	"sort"
 )
 
 /*
@@ -50,79 +50,24 @@ func kthLargestValue(matrix [][]int, k int) int {
 	n := len(matrix[0])
 
 	xors := make([][]int, m)
-	pq := NewPriorityKeeper(k)
 	xors[0] = make([]int, n)
 	xors[0][0] = matrix[0][0]
-	pq.Insert(xors[0][0])
+	pq := []int{matrix[0][0]}
 	for j := 1; j < n; j++ {
 		xors[0][j] = xors[0][j-1] ^ matrix[0][j]
-		pq.Insert(xors[0][j])
+		pq = append(pq, xors[0][j])
 	}
 	for i := 1; i < m; i++ {
 		xors[i] = make([]int, n)
 		xors[i][0] = xors[i-1][0] ^ matrix[i][0]
-		pq.Insert(xors[i][0])
+		pq = append(pq, xors[i][0])
 	}
 	for i := 1; i < m; i++ {
 		for j := 1; j < n; j++ {
 			xors[i][j] = xors[i-1][j] ^ xors[i][j-1] ^ xors[i-1][j-1] ^ matrix[i][j]
-			pq.Insert(xors[i][j])
+			pq = append(pq, xors[i][j])
 		}
 	}
-	return pq.Min()
-}
-
-type IntHeap []int
-
-func (h IntHeap) Len() int           { return len(h) }
-func (h IntHeap) Less(i, j int) bool { return h[i] < h[j] } // 最小的元素优先出队
-func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-
-func (h *IntHeap) Push(x interface{}) {
-	*h = append(*h, x.(int))
-}
-
-func (h *IntHeap) Pop() interface{} {
-	old := *h
-	n := len(old)
-	x := old[n-1]
-	*h = old[0 : n-1]
-	return x
-}
-
-type PriorityKeeper struct {
-	h *IntHeap
-	k int
-}
-
-func NewPriorityKeeper(k int) *PriorityKeeper {
-	h := &IntHeap{}
-	heap.Init(h)
-	return &PriorityKeeper{
-		h: h,
-		k: k,
-	}
-}
-
-func (p *PriorityKeeper) Insert(val int) {
-	if p.h.Len() < p.k {
-		heap.Push(p.h, val)
-	} else {
-		if (*p.h)[0] < val {
-			heap.Pop(p.h)
-			heap.Push(p.h, val)
-		}
-	}
-}
-
-func (p *PriorityKeeper) Min() int {
-	return (*p.h)[0]
-}
-
-func (p *PriorityKeeper) TopK() []int {
-	result := make([]int, 0, p.h.Len())
-	for i := p.h.Len() - 1; i >= 0; i-- {
-		result = append(result, (*p.h)[i])
-	}
-	return result
+	sort.Ints(pq)
+	return pq[len(pq)-k]
 }
