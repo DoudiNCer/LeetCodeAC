@@ -37,6 +37,22 @@ public class Main {
 
 class Solution {
     public double myPow(double x, int n) {
-        return Math.pow(x, n);
+        if (n == 0){
+            return 1;
+        }
+        if(x == 0){
+            return 0;
+        }
+        if (x == 1){
+            return 1;
+        }
+        if (n % 2 == 0){
+            double tmp = myPow(x, n / 2);
+            return tmp * tmp;
+        }
+        if (n < 0){
+            return myPow(1 / x, -n);
+        }
+        return myPow(x, n - 1) * x;
     }
 }
