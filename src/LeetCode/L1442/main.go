@@ -62,18 +62,16 @@ func countTriplets(arr []int) int {
 			return 0
 		}
 	}
-	xorp := make([]int, le)
-	xorp[0] = arr[0]
 	for i := 1; i < le; i++ {
-		xorp[i] = arr[i] ^ xorp[i-1]
+		arr[i] = arr[i] ^ arr[i-1]
 	}
 	result := 0
 	for r := 1; r < le; r++ {
-		if xorp[r] == 0 {
+		if arr[r] == 0 {
 			result += r
 		}
 		for l := 0; l < r-1; l++ {
-			if xorp[l] == xorp[r] {
+			if arr[l] == arr[r] {
 				result += (r - l - 1)
 			}
 		}
