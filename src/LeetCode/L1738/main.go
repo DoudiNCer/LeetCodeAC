@@ -43,31 +43,30 @@ import (
 */
 func main() {
 	fmt.Println("kthLargestValue([][]int{{5, 2}, {1, 6}}, 1) = ", kthLargestValue([][]int{{5, 2}, {1, 6}}, 1))
+	fmt.Println("kthLargestValue([][]int{{10, 9, 5}, {2, 0, 4}, {1, 0, 9}, {3, 4, 8}}, 10) = ", kthLargestValue([][]int{{10, 9, 5}, {2, 0, 4}, {1, 0, 9}, {3, 4, 8}}, 10))
 }
 
 func kthLargestValue(matrix [][]int, k int) int {
 	m := len(matrix)
 	n := len(matrix[0])
 
-	xors := make([][]int, m)
-	xors[0] = make([]int, n)
-	xors[0][0] = matrix[0][0]
-	pq := []int{matrix[0][0]}
+	xors := make([]int, m*n)
+	xors[0] = matrix[0][0]
 	for j := 1; j < n; j++ {
-		xors[0][j] = xors[0][j-1] ^ matrix[0][j]
-		pq = append(pq, xors[0][j])
+		xors[coordinate(0, j, n)] = xors[coordinate(0, j-1, n)] ^ matrix[0][j]
 	}
 	for i := 1; i < m; i++ {
-		xors[i] = make([]int, n)
-		xors[i][0] = xors[i-1][0] ^ matrix[i][0]
-		pq = append(pq, xors[i][0])
+		xors[coordinate(i, 0, n)] = xors[coordinate(i-1, 0, n)] ^ matrix[i][0]
 	}
 	for i := 1; i < m; i++ {
 		for j := 1; j < n; j++ {
-			xors[i][j] = xors[i-1][j] ^ xors[i][j-1] ^ xors[i-1][j-1] ^ matrix[i][j]
-			pq = append(pq, xors[i][j])
+			xors[coordinate(i, j, n)] = xors[coordinate(i-1, j, n)] ^ xors[coordinate(i, j-1, n)] ^ xors[coordinate(i-1, j-1, n)] ^ matrix[i][j]
 		}
 	}
-	sort.Ints(pq)
-	return pq[len(pq)-k]
+	sort.Ints(xors)
+	return xors[len(xors)-k]
+}
+
+func coordinate(x, y, n int) int {
+	return x*n + y
 }
