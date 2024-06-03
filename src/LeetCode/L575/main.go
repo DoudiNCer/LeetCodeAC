@@ -37,15 +37,16 @@ func main() {
 }
 
 func distributeCandies(candyType []int) int {
-	cnts := make(map[int]int)
+	candies := len(candyType) / 2
+	if candies == 1 {
+		return 1
+	}
+	cnts := make(map[int]any)
 	for _, c := range candyType {
-		cnts[c]++
+		cnts[c] = struct{}{}
+		if len(cnts) == candies {
+			return candies
+		}
 	}
-	le := len(candyType)
-	types := len(cnts)
-	if types*2 <= le {
-		return types
-	} else {
-		return le / 2
-	}
+	return len(cnts)
 }
