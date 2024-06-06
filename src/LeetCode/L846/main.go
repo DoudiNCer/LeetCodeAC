@@ -32,10 +32,10 @@ func main() {
 }
 
 func isNStraightHand(hand []int, groupSize int) bool {
-	le := len(hand)
 	if groupSize == 1 {
 		return true
 	}
+	le := len(hand)
 	if le%groupSize != 0 {
 		return false
 	}
