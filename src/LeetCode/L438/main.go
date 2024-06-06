@@ -55,6 +55,10 @@ func findAnagrams(s string, p string) []int {
 			return true
 		}() {
 			result = append(result, i)
+			for i+lp < ls && s[i] == s[i+lp] {
+				i++
+				result = append(result, i)
+			}
 		}
 		if i+lp < ls {
 			chs[s[i]-'a']--
