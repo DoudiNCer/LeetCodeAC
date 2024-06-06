@@ -40,7 +40,7 @@ func isNStraightHand(hand []int, groupSize int) bool {
 		return false
 	}
 	sort.Ints(hand)
-	cnts := []int{}
+	var cnts []int
 	lp, np := -1, -1
 	for len(hand) > 0 {
 		lp = np
