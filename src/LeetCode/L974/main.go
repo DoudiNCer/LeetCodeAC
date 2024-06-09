@@ -36,13 +36,13 @@ func subarraysDivByK(nums []int, k int) int {
 	cnts := make(map[int]int)
 	cnts[rem(nums[0], k)]++
 	for i := 1; i < le; i++ {
-		nums[i] = rem(nums[i-1]+nums[i], k)
-		cnts[nums[i]]++
+		nums[i] = nums[i-1] + nums[i]
+		cnts[rem(nums[i], k)]++
 	}
 	var result int
 	result += cnts[0]
 	for _, cnt := range cnts {
-		var rp int64 = int64(cnt)
+		var rp = int64(cnt)
 		rp *= int64(cnt - 1)
 		rp /= 2
 		result += int(rp)
