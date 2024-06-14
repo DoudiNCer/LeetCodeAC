@@ -43,28 +43,24 @@ func main() {
 
 func maxScore(nums []int, x int) int64 {
 	le := len(nums)
-	var dp [][]int64
 	parity := nums[0] % 2
-	dp = append(dp, []int64{int64(nums[0]), 0})
+	dp := []int64{int64(nums[0]), 0}
 	lp := true
 	for i := 1; i < le; i++ {
-		dd := []int64{dp[i-1][0], dp[i-1][1]}
 		if nums[i]%2 == parity {
-			dd[0] += int64(nums[i])
+			dp[0] += int64(nums[i])
 			if !lp {
-				dd[0] = max(dd[0], dd[1]+int64(nums[i]-x))
+				dp[0] = max(dp[0], dp[1]+int64(nums[i]-x))
 			}
 		} else {
 			if !lp {
-				dd[1] += int64(nums[i])
-				dd[1] = max(dd[1], dd[0]+int64(nums[i]-x))
-				lp = false
+				dp[1] += int64(nums[i])
+				dp[1] = max(dp[1], dp[0]+int64(nums[i]-x))
 			} else {
-				dd[1] = dd[0] + int64(nums[i]-x)
-				lp = false
+				dp[1] = dp[0] + int64(nums[i]-x)
 			}
+			lp = false
 		}
-		dp = append(dp, dd)
 	}
-	return max(dp[le-1][0], dp[le-1][1])
+	return max(dp[0], dp[1])
 }
