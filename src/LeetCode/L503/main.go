@@ -43,17 +43,26 @@ func nextGreaterElements(nums []int) []int {
 		}
 		result[i] = nums[i]
 	}
-	for x := 0; x < 2; x++ {
-		for i := 0; i < le; i++ {
-			if len(stack) == 0 || nums[stack[len(stack)-1]] >= nums[i] {
-				stack = append(stack, i)
-			} else {
-				for len(stack) > 0 && nums[stack[len(stack)-1]] < nums[i] {
-					result[stack[len(stack)-1]] = nums[i]
-					stack = stack[:len(stack)-1]
-				}
-				stack = append(stack, i)
+	for i := 0; i < le; i++ {
+		if len(stack) == 0 || nums[stack[len(stack)-1]] >= nums[i] {
+			stack = append(stack, i)
+		} else {
+			for len(stack) > 0 && nums[stack[len(stack)-1]] < nums[i] {
+				result[stack[len(stack)-1]] = nums[i]
+				stack = stack[:len(stack)-1]
 			}
+			stack = append(stack, i)
+		}
+	}
+	for i := 0; i < le && len(stack) > 0; i++ {
+		if nums[stack[len(stack)-1]] >= nums[i] {
+			stack = append(stack, i)
+		} else {
+			for len(stack) > 0 && nums[stack[len(stack)-1]] < nums[i] {
+				result[stack[len(stack)-1]] = nums[i]
+				stack = stack[:len(stack)-1]
+			}
+			stack = append(stack, i)
 		}
 	}
 	for _, i := range maxP {
