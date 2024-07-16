@@ -36,24 +36,22 @@ func main() {
 }
 
 func findIntersectionValues(nums1 []int, nums2 []int) []int {
-	set1 := make(map[int]any)
-	for _, num := range nums1 {
-		set1[num] = struct{}{}
-	}
-	set2 := make(map[int]any)
-	for _, num := range nums2 {
-		set2[num] = struct{}{}
-	}
-	result := []int{0, 0}
-	for i := 0; i < len(nums1); i++ {
-		if _, exist := set2[nums1[i]]; exist {
-			result[0]++
+	res := make([]int, 2)
+	for _, x1 := range nums1 {
+		for _, x2 := range nums2 {
+			if x1 == x2 {
+				res[0]++
+				break
+			}
 		}
 	}
-	for i := 0; i < len(nums2); i++ {
-		if _, exist := set1[nums2[i]]; exist {
-			result[1]++
+	for _, x2 := range nums2 {
+		for _, x1 := range nums1 {
+			if x2 == x1 {
+				res[1]++
+				break
+			}
 		}
 	}
-	return result
+	return res
 }
