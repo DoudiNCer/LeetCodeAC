@@ -38,35 +38,33 @@ func main() {
 }
 
 func maxDistance(arrays [][]int) int {
-	minl, maxl := make([][]int, 0, 2), make([][]int, 0, 2)
+	minl, maxl := []int{0}, []int{0}
 	for i, array := range arrays {
 		ap := len(array) - 1
 		if i == 0 {
-			minl = append(minl, []int{array[0], 0})
-			maxl = append(maxl, []int{array[ap], 0})
 			continue
 		} else if i == 1 {
-			minl = append(minl, []int{array[0], 1})
-			maxl = append(maxl, []int{array[ap], 1})
+			minl = append(minl, 1)
+			maxl = append(maxl, 1)
 		} else {
-			if array[0] < minl[1][0] {
-				minl[1] = []int{array[0], i}
+			if array[0] < arrays[minl[1]][0] {
+				minl[1] = i
 			}
-			if array[ap] > maxl[1][0] {
-				maxl[1] = []int{array[ap], i}
+			if array[ap] > arrays[maxl[1]][0] {
+				maxl[1] = i
 			}
 		}
-		if minl[1][0] < minl[0][0] {
+		if arrays[minl[1]][0] < arrays[minl[0]][0] {
 			minl[0], minl[1] = minl[1], minl[0]
 		}
-		if maxl[1][0] > maxl[0][0] {
+		if arrays[maxl[1]][len(arrays[maxl[1]])-1] > arrays[maxl[0]][len(arrays[maxl[0]])-1] {
 			maxl[0], maxl[1] = maxl[1], maxl[0]
 		}
 	}
-	if maxl[0][1] != minl[0][1] {
-		return maxl[0][0] - minl[0][0]
+	if maxl[0] != minl[0] {
+		return arrays[maxl[0]][len(arrays[maxl[0]])-1] - arrays[minl[0]][0]
 	} else {
-		a, b := maxl[0][0]-minl[1][0], maxl[1][0]-minl[0][0]
+		a, b := arrays[maxl[0]][len(arrays[maxl[0]])-1]-arrays[minl[1]][0], arrays[maxl[1]][len(arrays[maxl[1]])-1]-arrays[minl[0]][0]
 		if a > b {
 			return a
 		} else {
