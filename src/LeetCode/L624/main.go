@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 /*
@@ -39,18 +38,31 @@ func main() {
 }
 
 func maxDistance(arrays [][]int) int {
-	le := len(arrays)
-	minl, maxl := make([][]int, 0, le), make([][]int, 0, le)
+	minl, maxl := make([][]int, 0, 2), make([][]int, 0, 2)
 	for i, array := range arrays {
-		minl = append(minl, []int{array[0], i})
-		maxl = append(maxl, []int{array[len(array)-1], i})
+		ap := len(array) - 1
+		if i == 0 {
+			minl = append(minl, []int{array[0], 0})
+			maxl = append(maxl, []int{array[ap], 0})
+			continue
+		} else if i == 1 {
+			minl = append(minl, []int{array[0], 1})
+			maxl = append(maxl, []int{array[ap], 1})
+		} else {
+			if array[0] < minl[1][0] {
+				minl[1] = []int{array[0], i}
+			}
+			if array[ap] > maxl[1][0] {
+				maxl[1] = []int{array[ap], i}
+			}
+		}
+		if minl[1][0] < minl[0][0] {
+			minl[0], minl[1] = minl[1], minl[0]
+		}
+		if maxl[1][0] > maxl[0][0] {
+			maxl[0], maxl[1] = maxl[1], maxl[0]
+		}
 	}
-	sort.Slice(minl, func(i, j int) bool {
-		return minl[i][0] < minl[j][0]
-	})
-	sort.Slice(maxl, func(i, j int) bool {
-		return maxl[i][0] > maxl[j][0]
-	})
 	if maxl[0][1] != minl[0][1] {
 		return maxl[0][0] - minl[0][0]
 	} else {
