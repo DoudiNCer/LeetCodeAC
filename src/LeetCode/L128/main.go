@@ -34,40 +34,21 @@ func main() {
 }
 
 func longestConsecutive(nums []int) int {
-	paras := make(map[int]int)
+	exist := make(map[int]bool, len(nums))
 	for _, num := range nums {
-		if _, ok := paras[num]; ok {
-			continue
-		}
-		if _, ok := paras[num+1]; ok {
-			paras[num] = num + 1
-		} else {
-			paras[num] = num
-		}
-		if fp, ok := paras[num-1]; ok {
-			if fp == num {
-				continue
-			} else {
-				paras[num-1] = num
-			}
-		}
+		exist[num] = true
 	}
 	result := 0
-	for k, v := range paras {
-		if k != v {
+	for _, num := range nums {
+		if exist[num-1] {
 			continue
 		}
-
-		cnt := 1
-		for {
-			if _, ok := paras[k-cnt]; ok {
-				cnt++
-			} else {
-				break
-			}
+		pcnt := 1
+		for exist[num+pcnt] {
+			pcnt++
 		}
-		if cnt > result {
-			result = cnt
+		if pcnt > result {
+			result = pcnt
 		}
 	}
 	return result
