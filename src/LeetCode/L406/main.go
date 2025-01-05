@@ -45,18 +45,46 @@ func reconstructQueue(people [][]int) [][]int {
 		a, b := people[i], people[j]
 		return a[0] < b[0] || a[0] == b[0] && a[1] > b[1]
 	})
-	ans := make([][]int, len(people))
+	le := len(people)
+	ans := make([][]int, le)
+	cnts := NewTreeArrsy(le)
 	for _, person := range people {
-		spaces := person[1] + 1
-		for i := range ans {
-			if ans[i] == nil {
-				spaces--
-				if spaces == 0 {
-					ans[i] = person
-					break
-				}
-			}
+		p := person[1]
+		for p-cnts.Query(p) < person[1] {
+			p++
 		}
+		ans[p] = []int{person[0], person[1]}
+		cnts.Append(p, 1)
 	}
 	return ans
+}
+
+type TreeArrsy struct {
+	n     int
+	array []int
+}
+
+func NewTreeArrsy(n int) *TreeArrsy {
+	return &TreeArrsy{n: n, array: make([]int, n)}
+}
+
+func (t *TreeArrsy) Append(n, d int) {
+	if n >= t.n {
+		return
+	}
+	for i := n; i < t.n; i += lowbit(i + 1) {
+		t.array[i] += d
+	}
+}
+
+func (t *TreeArrsy) Query(n int) int {
+	result := 0
+	for i := n; i >= 0 && i < t.n; i -= lowbit(i + 1) {
+		result += t.array[i]
+	}
+	return result
+}
+
+func lowbit(i int) int {
+	return i & -i
 }
