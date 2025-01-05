@@ -44,46 +44,44 @@ func main() {
 }
 
 func equationsPossible(equations []string) bool {
-	equ := make(map[uint8]map[uint8]any)
+	uss := NewUnionSearchSet(26)
 	for _, equation := range equations {
 		if equation[1] != '=' {
 			continue
 		}
-		x, y := equation[0], equation[3]
-		sx, sy := equ[x], equ[y]
-		sz := map[uint8]any{
-			x: struct{}{},
-			y: struct{}{},
-		}
-		if sx != nil {
-			for k, v := range sx {
-				sz[k] = v
-			}
-		}
-		if sy != nil {
-			for k, v := range sy {
-				sz[k] = v
-			}
-		}
-		for k, _ := range sz {
-			equ[k] = sz
-		}
+		x, y := int(equation[0]-'a'), int(equation[3]-'a')
+		uss.Union(x, y)
 	}
 	for _, equation := range equations {
 		if equation[1] == '=' {
 			continue
 		}
-		x, y := equation[0], equation[3]
-		if x == y {
-			return false
-		}
-		sx, sy := equ[x], equ[y]
-		if sx == nil || sy == nil {
-			continue
-		}
-		if _, exist := sx[y]; exist {
+		x, y := int(equation[0]-'a'), int(equation[3]-'a')
+		if uss.Find(x) == uss.Find(y) {
 			return false
 		}
 	}
 	return true
+}
+
+type UnionSearchSet []int
+
+func NewUnionSearchSet(len int) UnionSearchSet {
+	uss := make([]int, len)
+	for i := 0; i < len; i++ {
+		uss[i] = i
+	}
+	return uss
+}
+
+func (uss *UnionSearchSet) Union(a, b int) {
+	(*uss)[uss.Find(a)] = uss.Find(b)
+}
+
+func (uss *UnionSearchSet) Find(a int) int {
+	for (*uss)[a] != a {
+		(*uss)[a] = (*uss)[(*uss)[a]]
+		a = (*uss)[a]
+	}
+	return a
 }
