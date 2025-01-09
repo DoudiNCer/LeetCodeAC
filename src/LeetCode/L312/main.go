@@ -42,9 +42,7 @@ func maxCoins(nums []int) int {
 	for i := le - 1; i >= 0; i-- {
 		for j := i + 2; j <= le+1; j++ {
 			for k := i + 1; k < j; k++ {
-				sum := nums[i] * nums[k] * nums[j]
-				sum += rec[k][i] + rec[j][k]
-				rec[j][i] = max(rec[j][i], sum)
+				rec[j][i] = max(rec[j][i], nums[i]*nums[k]*nums[j]+rec[k][i]+rec[j][k])
 			}
 		}
 	}
