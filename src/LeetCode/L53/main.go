@@ -32,24 +32,15 @@ func main() {
 	fmt.Println("maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}) = ", maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
 }
 
-func maxSubArray(nums []int) int {
-	fmt.Println("nums = ", nums)
-	le, result := len(nums), nums[0]
-	for i := 1; i < le; i++ {
-		nums[i] += nums[i-1]
-		result = max(nums[i], result)
+func maxSubArray(arr []int) int {
+	best := arr[0]
+	sum := arr[0]
+
+	for i := 1; i < len(arr); i++ {
+		sum = max(arr[i], sum+arr[i])
+		best = max(best, sum)
 	}
-	maxs := make([]int, le)
-	maxs[le-1] = nums[le-1]
-	for i := le - 2; i >= 0; i-- {
-		maxs[i] = max(nums[i], maxs[i+1])
-	}
-	for i := 0; i < le-1; i++ {
-		if nums[i] < 0 {
-			result = max(result, maxs[i+1]-nums[i])
-		}
-	}
-	return result
+	return best
 }
 
 func max(a, b int) int {
