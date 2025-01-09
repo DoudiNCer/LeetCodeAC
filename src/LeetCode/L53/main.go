@@ -33,9 +33,12 @@ func main() {
 }
 
 func maxSubArray(arr []int) int {
+	if len(arr) == 1 {
+		return arr[0]
+	}
+
 	best := arr[0]
 	sum := arr[0]
-
 	for i := 1; i < len(arr); i++ {
 		sum = max(arr[i], sum+arr[i])
 		best = max(best, sum)
