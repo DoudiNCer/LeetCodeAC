@@ -27,42 +27,29 @@ func main() {
 }
 
 func canPartition(nums []int) bool {
-	le := len(nums)
-	if le == 1 {
-		return false
-	}
-	max, sum := 0, 0
+	target := 0
+	max := 0
 	for _, num := range nums {
-		sum += num
-		if num > max {
+		target += num
+		if max < num {
 			max = num
 		}
 	}
-	if sum&1 != 0 {
+
+	if target&1 == 1 {
 		return false
 	}
-	sum >>= 1
-	if max > sum {
+	target /= 2
+	if max > target {
 		return false
 	}
-	if sum == max {
-		return true
-	}
-	dp := make([][]bool, le)
-	for i := 0; i < le; i++ {
-		dp[i] = make([]bool, sum+1)
-		dp[i][0] = true
-	}
-	dp[0][nums[0]] = true
-	for i := 1; i < le; i++ {
-		v := nums[i]
-		for j := 1; j <= sum; j++ {
-			if j >= v {
-				dp[i][j] = dp[i-1][j] || dp[i-1][j-v]
-			} else {
-				dp[i][j] = dp[i-1][j]
-			}
+	dp := make([]bool, target+1)
+	dp[0] = true
+	for _, num := range nums {
+		for i := target; i > num; i-- {
+			dp[i] = dp[i-num] || dp[i]
 		}
+		dp[num] = true
 	}
-	return dp[le-1][sum]
+	return dp[target]
 }
