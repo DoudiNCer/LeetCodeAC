@@ -35,8 +35,10 @@ func largestRectangleArea(heights []int) int {
 	ledge, redge := make([]int, le), make([]int, le)
 	mono_stack := []int{}
 	for i := 0; i < le; i++ {
+		redge[i] = le
 		p := len(mono_stack) - 1
 		for p >= 0 && heights[mono_stack[p]] >= heights[i] {
+			redge[mono_stack[p]] = i
 			p--
 		}
 		mono_stack = mono_stack[:p+1]
@@ -44,20 +46,6 @@ func largestRectangleArea(heights []int) int {
 			ledge[i] = -1
 		} else {
 			ledge[i] = mono_stack[p]
-		}
-		mono_stack = append(mono_stack, i)
-	}
-	mono_stack = []int{}
-	for i := le - 1; i >= 0; i-- {
-		p := len(mono_stack) - 1
-		for p >= 0 && heights[mono_stack[p]] >= heights[i] {
-			p--
-		}
-		mono_stack = mono_stack[:p+1]
-		if p == -1 {
-			redge[i] = le
-		} else {
-			redge[i] = mono_stack[p]
 		}
 		mono_stack = append(mono_stack, i)
 	}
