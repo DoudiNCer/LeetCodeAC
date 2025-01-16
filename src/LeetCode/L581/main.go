@@ -36,12 +36,19 @@ func main() {
 }
 
 func findUnsortedSubarray(nums []int) int {
-	desc := make([]int, len(nums))
+	le := len(nums)
+	if le == 1 {
+		return 0
+	}
+	if nums[0] > nums[le-1] {
+		return le
+	}
+	desc := make([]int, le)
 	for i, num := range nums {
 		desc[i] = num
 	}
 	sort.Ints(desc)
-	result := len(nums)
+	result := le
 	for i := result - 1; i >= 0 && nums[i] == desc[i]; i-- {
 		result--
 	}
