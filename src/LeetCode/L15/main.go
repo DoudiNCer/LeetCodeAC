@@ -60,12 +60,12 @@ func threeSum(nums []int) [][]int {
 		for j := i + 1; j < len(nums)-1; j++ {
 			s := nums[j]
 			w := -z - s
-			hs := hash([]int{z, s, w})
-			if exists[hs] {
-				continue
-			}
 			set, exist := keys[w]
 			if !exist {
+				continue
+			}
+			hs := hash([]int{z, s, w})
+			if exists[hs] {
 				continue
 			}
 			k := -1
