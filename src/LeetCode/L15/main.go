@@ -44,58 +44,37 @@ func main() {
 }
 
 func threeSum(nums []int) [][]int {
-	keys := make(map[int]map[int]any)
-	for i, num := range nums {
-		set, ok := keys[num]
-		if !ok {
-			set = make(map[int]any)
-		}
-		set[i] = num
-		keys[num] = set
-	}
+	sort.Ints(nums)
 	result := make([][]int, 0)
-	exists := make(map[uint64]bool)
-	for i := 0; i < len(nums)-2; i++ {
-		z := nums[i]
-		for j := i + 1; j < len(nums)-1; j++ {
-			s := nums[j]
-			w := -z - s
-			set, exist := keys[w]
-			if !exist {
-				continue
-			}
-			hs := hash([]int{z, s, w})
-			if exists[hs] {
-				continue
-			}
-			k := -1
-			for kk, _ := range set {
-				if kk <= j {
-					continue
+	le := len(nums)
+	for i := 0; i < le-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		j, k := i+1, le-1
+		for j < k {
+			if zsw := nums[i] + nums[j] + nums[k]; zsw == 0 {
+				result = append(result, []int{nums[i], nums[j], nums[k]})
+				for j < k && nums[j] == nums[j+1] {
+					j++
 				}
-				k = kk
+				for k > j && nums[k] == nums[k-1] {
+					k--
+				}
+				j++
+				k--
+			} else if zsw > 0 {
+				for k > j && nums[k] == nums[k-1] {
+					k--
+				}
+				k--
+			} else {
+				for j < k && nums[j] == nums[j+1] {
+					j++
+				}
+				j++
 			}
-			if k == -1 {
-				continue
-			}
-			exists[hs] = true
-			result = append(result, []int{z, s, w})
 		}
 	}
 	return result
-}
-
-func hash(nums []int) uint64 {
-	sort.Ints(nums)
-	hs := uint64(0)
-	for _, num := range nums {
-		hs <<= 1
-		if num < 0 {
-			hs += 1
-			num = -num
-		}
-		hs <<= 20
-		hs += uint64(num)
-	}
-	return hs
 }
