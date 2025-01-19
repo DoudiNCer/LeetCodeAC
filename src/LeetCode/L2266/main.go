@@ -40,24 +40,14 @@ Alice 可能发出的文字信息包括：
 */
 func main() {
 	fmt.Println("countTexts(\"22233\") = ", countTexts("22233"))
+	fmt.Println("countTexts(\"222222222222222222222222222222222222\") = ", countTexts("222222222222222222222222222222222222"))
 }
 
 const mod = int64(1000000007)
 
-var dp3 = map[int]int64{
-	0: 1,
-	1: 1,
-	2: 2,
-	3: 4,
-}
+var dp3 = []int64{1, 1, 2, 4}
 
-var dp4 = map[int]int64{
-	0: 1,
-	1: 1,
-	2: 2,
-	3: 4,
-	4: 8,
-}
+var dp4 = []int64{1, 1, 2, 4, 8}
 
 func countTexts(pressedKeys string) int {
 	result := int64(1)
@@ -79,31 +69,32 @@ func dp3c(i int) int64 {
 	if i < 0 {
 		return 0
 	}
-	result, exist := dp3[i]
-	if !exist {
-		result = dp3c(i - 3)
-		result += dp3c(i - 2)
-		result += dp3c(i - 1)
-		result %= mod
-		dp3[i] = result
+	l := len(dp3)
+	for l <= i {
+		cnt := (dp3[l-1]*2 - dp3[l-4]) % mod
+		if cnt < 0 {
+			cnt += mod
+		}
+		dp3 = append(dp3, cnt)
+		l++
 	}
-	return result
+	return dp3[i]
 }
 
 func dp4c(i int) int64 {
 	if i < 0 {
 		return 0
 	}
-	result, exist := dp4[i]
-	if !exist {
-		result = dp4c(i - 4)
-		result += dp4c(i - 3)
-		result += dp4c(i - 2)
-		result += dp4c(i - 1)
-		result %= mod
-		dp4[i] = result
+	l := len(dp4)
+	for l <= i {
+		cnt := (dp4[l-1]*2 - dp4[l-5]) % mod
+		if cnt < 0 {
+			cnt += mod
+		}
+		dp4 = append(dp4, cnt)
+		l++
 	}
-	return result
+	return dp4[i]
 }
 
 func If[T any](expression bool, trueVal, falseVal T) T {
