@@ -37,21 +37,23 @@ func main() {
 }
 
 func combine(n int, k int) [][]int {
-	var bt func(int, int) [][]int
-	bt = func(l int, k int) [][]int {
-		k--
-		result := make([][]int, 0)
-		for l <= n-k {
-			if k == 0 {
-				result = append(result, []int{l})
-			} else {
-				for _, sub := range bt(l+1, k) {
-					result = append(result, append(sub, l))
-				}
-			}
-			l++
+	result := make([][]int, 0)
+	path := make([]int, k)
+	var bt func(int2 int)
+	bt = func(start int) {
+		le := len(path)
+		if le == k {
+			tmp := make([]int, k)
+			copy(tmp, path)
+			result = append(result, tmp)
+			return
 		}
-		return result
+		for i := start; i <= n-k+le+1; i++ {
+			path = append(path, i)
+			bt(i + 1)
+			path = path[:len(path)-1]
+		}
 	}
-	return bt(1, k)
+	bt(1)
+	return result
 }
