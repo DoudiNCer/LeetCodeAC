@@ -35,15 +35,18 @@ func main() {
 
 func sortArrayByParityII(nums []int) []int {
 	le := len(nums)
-	result := make([]int, le)
-	for p, q, i := 0, 1, 0; i < le; i++ {
-		if nums[i]%2 == 0 {
-			result[p] = nums[i]
+	for p, q := 0, 1; p < le && q < le; {
+		if nums[p]%2 == 0 {
 			p += 2
-		} else {
-			result[q] = nums[i]
-			q += 2
+			continue
 		}
+		if nums[q]%2 == 1 {
+			q += 2
+			continue
+		}
+		nums[p], nums[q] = nums[q], nums[p]
+		p += 2
+		q += 2
 	}
-	return result
+	return nums
 }
