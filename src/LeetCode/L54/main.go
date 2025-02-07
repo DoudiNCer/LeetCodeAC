@@ -10,7 +10,7 @@ import "fmt"
 
 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
 输出：[1,2,3,6,9,8,7,4,5]
-示例 2：
+示例 2：`
 
 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
@@ -30,36 +30,25 @@ func main() {
 func spiralOrder(matrix [][]int) []int {
 	m, n := len(matrix), len(matrix[0])
 	result := make([]int, 0, m*n)
-	for _, loc := range matrixSpiralOrder(m, n) {
-		result = append(result, matrix[loc[0]][loc[1]])
-	}
-	return result
-}
-
-func matrixSpiralOrder(m, n int) [][]int {
-	if m*n == 0 {
-		return [][]int{}
-	}
-	result := make([][]int, 0, m*n)
 	u, d, l, r := 0, m-1, 0, n-1
 	for l <= r && u <= d {
 		for j := l; j <= r; j++ {
-			result = append(result, []int{u, j})
+			result = append(result, matrix[u][j])
 		}
 		u++
 		for i := u; i <= d; i++ {
-			result = append(result, []int{i, r})
+			result = append(result, matrix[i][r])
 		}
 		r--
 		if u <= d {
 			for j := r; j >= l; j-- {
-				result = append(result, []int{d, j})
+				result = append(result, matrix[d][j])
 			}
 			d--
 		}
 		if l <= r {
 			for i := d; i >= u; i-- {
-				result = append(result, []int{i, l})
+				result = append(result, matrix[i][l])
 			}
 			l++
 		}
