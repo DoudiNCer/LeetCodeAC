@@ -29,36 +29,29 @@ func generateMatrix(n int) [][]int {
 	for i := 0; i < n; i++ {
 		result = append(result, make([]int, n))
 	}
-	for i, loc := range matrixSpiralOrder(n, n) {
-		result[loc[0]][loc[1]] = i + 1
-	}
-	return result
-}
-
-func matrixSpiralOrder(m, n int) [][]int {
-	if m*n == 0 {
-		return [][]int{}
-	}
-	result := make([][]int, 0, m*n)
-	u, d, l, r := 0, m-1, 0, n-1
-	for l <= r && u <= d {
+	u, d, l, r, num := 0, n-1, 0, n-1, 1
+	for num <= n*n {
 		for j := l; j <= r; j++ {
-			result = append(result, []int{u, j})
+			result[u][j] = num
+			num++
 		}
 		u++
 		for i := u; i <= d; i++ {
-			result = append(result, []int{i, r})
+			result[i][r] = num
+			num++
 		}
 		r--
 		if u <= d {
 			for j := r; j >= l; j-- {
-				result = append(result, []int{d, j})
+				result[d][j] = num
+				num++
 			}
 			d--
 		}
 		if l <= r {
 			for i := d; i >= u; i-- {
-				result = append(result, []int{i, l})
+				result[i][l] = num
+				num++
 			}
 			l++
 		}
