@@ -24,13 +24,19 @@ func main() {
 	fmt.Println("numTrees(3) = ", numTrees(3))
 }
 
+var table = map[int]int{
+	0: 1,
+	1: 1,
+}
+
 func numTrees(n int) int {
-	if n < 2 {
-		return 1
+	if cnt, ok := table[n]; ok {
+		return cnt
 	}
 	result := 0
 	for i := 0; i < n; i++ {
 		result += numTrees(i) * numTrees(n-1-i)
 	}
+	table[n] = result
 	return result
 }
