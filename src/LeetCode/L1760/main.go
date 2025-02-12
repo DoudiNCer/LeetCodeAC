@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
 *
@@ -48,25 +51,20 @@ func main() {
 }
 
 func minimumSize(nums []int, maxOperations int) int {
-	l, r := 1, nums[0]
-	for _, num := range nums {
-		if num > r {
-			r = num
+	max := 0
+	for _, x := range nums {
+		if x > max {
+			max = x
 		}
 	}
-	result := 0
-	for l <= r {
-		y := (l + r) / 2
+	return sort.Search(max, func(y int) bool {
+		if y == 0 {
+			return false
+		}
 		ops := 0
-		for _, num := range nums {
-			ops += (num - 1) / y
+		for _, x := range nums {
+			ops += (x - 1) / y
 		}
-		if ops > maxOperations {
-			l = y + 1
-		} else {
-			result = y
-			r = y - 1
-		}
-	}
-	return result
+		return ops <= maxOperations
+	})
 }
