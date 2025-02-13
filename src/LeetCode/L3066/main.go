@@ -49,34 +49,40 @@ func main() {
 		minOperations([]int{2, 11, 10, 1, 3}, 10))
 	fmt.Println("minOperations([]int{1, 1, 2, 4, 9}, 20) = ",
 		minOperations([]int{1, 1, 2, 4, 9}, 20))
+	fmt.Println("minOperations([]int{999999999, 999999999, 999999999}, 1000000000) = ",
+		minOperations([]int{999999999, 999999999, 999999999}, 1000000000))
 }
 
 func minOperations(nums []int, k int) int {
 	mh := &MinHeap{}
 	heap.Init(mh)
-	cnt := 0
+	min := k - 1
 	for _, num := range nums {
 		if num < k {
-			cnt++
+			heap.Push(mh, num)
+		} else if num > min {
+			min = num
 		}
-		heap.Push(mh, num)
-	}
-	if cnt == 0 {
-		return 0
+
 	}
 	result := 0
-	for cnt > 0 {
-		a, b := heap.Pop(mh).(int), heap.Pop(mh).(int)
-		cnt -= 2
+	for mh.Len() > 0 {
+		var a, b int
+		if mh.Len() < 2 {
+			a, b = heap.Pop(mh).(int), min
+		} else {
+			a, b = heap.Pop(mh).(int), heap.Pop(mh).(int)
+		}
 		result++
 		if a > b {
 			a, b = b, a
 		}
-		c := a*2 + b
-		heap.Push(mh, c)
-		if c < k {
-			cnt++
+		if c := a*2 + b; c < k {
+			heap.Push(mh, c)
+		} else if c < min {
+			min = c
 		}
+
 	}
 	return result
 }
