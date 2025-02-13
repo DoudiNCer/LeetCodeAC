@@ -45,7 +45,7 @@ func main() {
 }
 
 func countBalls(lowLimit int, highLimit int) int {
-	cnts := make(map[int]int)
+	var cnts [46]int
 	for i := lowLimit; i <= highLimit; i++ {
 		cnts[bitsum(i)]++
 	}
