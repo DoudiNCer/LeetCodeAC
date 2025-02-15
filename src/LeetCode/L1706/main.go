@@ -59,11 +59,7 @@ func findBall(grid [][]int) []int {
 		loc := j
 		for i := 0; i < m; i++ {
 			lg := loc + grid[i][loc]
-			if lg < 0 || lg >= n {
-				loc = -1
-				break
-			}
-			if grid[i][loc] != grid[i][lg] {
+			if lg < 0 || lg >= n || grid[i][loc] != grid[i][lg] {
 				loc = -1
 				break
 			}
