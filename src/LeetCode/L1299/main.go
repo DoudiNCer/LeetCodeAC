@@ -37,16 +37,13 @@ func main() {
 
 func replaceElements(arr []int) []int {
 	le := len(arr)
-	mx := arr[le-1]
-	arr[le-1] = -1
-	for i := le - 2; i >= 0; i-- {
-		mx, arr[i] = max(mx, arr[i]), mx
+	mx := -1
+	for i := le - 1; i >= 0; i-- {
+		if arr[i] > mx {
+			arr[i], mx = mx, arr[i]
+		} else {
+			arr[i] = mx
+		}
 	}
 	return arr
-}
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
