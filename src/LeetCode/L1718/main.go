@@ -59,30 +59,14 @@ func constructDistancedSequence(n int) []int {
 			if used[c] {
 				continue
 			}
-			if c == 1 {
-				used[c] = true
-				result[rp] = 1
-				res := func(check int) bool {
-					if c == check {
-						return dfs(check-1, rp+1)
-					} else {
-						return dfs(check, rp+1)
-					}
-				}(check)
-				if res {
-					return true
-				} else {
-					used[c] = false
-					result[rp] = 0
-					return false
-				}
-			}
-			if rp+c >= le || result[rp+c] != 0 {
+			if c > 1 && (rp+c >= le || result[rp+c] != 0) {
 				continue
 			}
 			used[c] = true
 			result[rp] = c
-			result[rp+c] = c
+			if c > 1 {
+				result[rp+c] = c
+			}
 			res := func(check int) bool {
 				if c == check {
 					return dfs(check-1, rp+1)
@@ -95,7 +79,9 @@ func constructDistancedSequence(n int) []int {
 			} else {
 				used[c] = false
 				result[rp] = 0
-				result[rp+c] = 0
+				if c > 1 {
+					result[rp+c] = 0
+				}
 			}
 		}
 		return false
