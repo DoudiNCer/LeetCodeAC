@@ -51,6 +51,8 @@ func main() {
 	fmt.Println("getHappyString(3, 9) = ", getHappyString(3, 9))
 }
 
+var pool = [][]byte{{'b', 'c'}, {'a', 'c'}, {'a', 'b'}}
+
 func getHappyString(n int, k int) string {
 	cnt := 3
 	if n > 1 {
@@ -61,30 +63,17 @@ func getHappyString(n int, k int) string {
 	if k > cnt {
 		return ""
 	}
+	k--
 	stack := make([]byte, 1, n)
-	var dfs func(i int) bool
-	dfs = func(i int) bool {
-		if len(stack) == n {
-			k--
-			return k > 0
-		}
-		for _, c := range []byte{'a', 'b', 'c'} {
-			if c == stack[i] {
-				continue
-			}
-			stack = append(stack, c)
-			if !dfs(i + 1) {
-				return false
-			}
-			stack = stack[:len(stack)-1]
-		}
-		return true
-	}
-	for _, c := range []byte{'a', 'b', 'c'} {
-		stack[0] = c
-		if !dfs(0) {
-			break
-		}
+	cnt /= 3
+	stack[0] = 'a'
+	stack[0] += byte(k / cnt)
+	k %= cnt
+	n--
+	for i := 0; i < n; i++ {
+		cnt >>= 1
+		stack = append(stack, pool[stack[i]-'a'][k/cnt])
+		k %= cnt
 	}
 	return string(stack)
 }
