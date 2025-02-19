@@ -62,22 +62,25 @@ func getHappyString(n int, k int) string {
 	if k > cnt {
 		return ""
 	}
-	strs := make([]string, 0, cnt)
+	strs := make([]string, 0, k)
 	stack := make([]byte, 1, n)
-	var dfs func(i int)
-	dfs = func(i int) {
+	var dfs func(i int) bool
+	dfs = func(i int) bool {
 		if len(stack) == n {
 			strs = append(strs, string(stack))
-			return
+			return len(strs) < k
 		}
 		for _, c := range []byte{'a', 'b', 'c'} {
 			if c == stack[i] {
 				continue
 			}
 			stack = append(stack, c)
-			dfs(i + 1)
+			if !dfs(i + 1) {
+				return false
+			}
 			stack = stack[:len(stack)-1]
 		}
+		return true
 	}
 	for _, c := range []byte{'a', 'b', 'c'} {
 		stack[0] = c
