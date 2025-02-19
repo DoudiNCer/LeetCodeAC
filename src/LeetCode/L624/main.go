@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 /*
@@ -35,40 +36,34 @@ import (
 
 func main() {
 	fmt.Println("maxDistance([][]int{{1, 2, 3}, {4, 5}, {1, 2, 3}}) = ", maxDistance([][]int{{1, 2, 3}, {4, 5}, {1, 2, 3}}))
+	fmt.Println("maxDistance([][]int{{1}, {1}}) = ", maxDistance([][]int{{1}, {1}}))
 }
 
 func maxDistance(arrays [][]int) int {
-	minl, maxl := []int{0}, []int{0}
-	for i, array := range arrays {
-		ap := len(array) - 1
-		if i == 0 {
-			continue
-		} else if i == 1 {
-			minl = append(minl, 1)
-			maxl = append(maxl, 1)
+	m := len(arrays)
+	maxs := make([]int, 0, m)
+	for i := range arrays {
+		maxs = append(maxs, arrays[i][len(arrays[i])-1])
+	}
+	sort.Ints(maxs)
+	result := -1
+	for i := range arrays {
+		ma := -1
+		if len(arrays[i]) == 1 {
+			ma = maxs[m-1] - arrays[i][0]
 		} else {
-			if array[0] < arrays[minl[1]][0] {
-				minl[1] = i
-			}
-			if array[ap] > arrays[maxl[1]][0] {
-				maxl[1] = i
+			if maxs[m-1] == arrays[i][len(arrays[i])-1] {
+				ma = maxs[m-2] - arrays[i][0]
+			} else {
+				ma = maxs[m-1] - arrays[i][0]
 			}
 		}
-		if arrays[minl[1]][0] < arrays[minl[0]][0] {
-			minl[0], minl[1] = minl[1], minl[0]
+		if ma < 0 {
+			ma = -ma
 		}
-		if arrays[maxl[1]][len(arrays[maxl[1]])-1] > arrays[maxl[0]][len(arrays[maxl[0]])-1] {
-			maxl[0], maxl[1] = maxl[1], maxl[0]
+		if ma > result {
+			result = ma
 		}
 	}
-	if maxl[0] != minl[0] {
-		return arrays[maxl[0]][len(arrays[maxl[0]])-1] - arrays[minl[0]][0]
-	} else {
-		a, b := arrays[maxl[0]][len(arrays[maxl[0]])-1]-arrays[minl[1]][0], arrays[maxl[1]][len(arrays[maxl[1]])-1]-arrays[minl[0]][0]
-		if a > b {
-			return a
-		} else {
-			return b
-		}
-	}
+	return result
 }
