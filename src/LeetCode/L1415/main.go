@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 /*
@@ -62,13 +61,12 @@ func getHappyString(n int, k int) string {
 	if k > cnt {
 		return ""
 	}
-	strs := make([]string, 0, k)
 	stack := make([]byte, 1, n)
 	var dfs func(i int) bool
 	dfs = func(i int) bool {
 		if len(stack) == n {
-			strs = append(strs, string(stack))
-			return len(strs) < k
+			k--
+			return k > 0
 		}
 		for _, c := range []byte{'a', 'b', 'c'} {
 			if c == stack[i] {
@@ -84,8 +82,9 @@ func getHappyString(n int, k int) string {
 	}
 	for _, c := range []byte{'a', 'b', 'c'} {
 		stack[0] = c
-		dfs(0)
+		if !dfs(0) {
+			break
+		}
 	}
-	sort.Strings(strs)
-	return strs[k-1]
+	return string(stack)
 }
