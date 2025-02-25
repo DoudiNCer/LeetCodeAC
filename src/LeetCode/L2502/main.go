@@ -73,19 +73,21 @@ func Constructor(n int) Allocator {
 
 func (this *Allocator) Allocate(size int, mID int) int {
 	res := -1
-	for i := 0; i < len(this.mem); i++ {
-		if this.mem[i] == 0 {
-			res = i
-			for j := 0; j < size; j++ {
-				if i+j >= len(this.mem) || this.mem[i+j] != 0 {
-					res = -1
-					break
-				}
-			}
-			if res == i {
+	for i := 0; i < len(this.mem)-size+1; i++ {
+		if this.mem[i] != 0 || this.mem[i+size-1] != 0 {
+			continue
+		}
+		res = i
+		for j := 0; j < size; j++ {
+			if this.mem[i+j] != 0 {
+				res = -1
 				break
 			}
 		}
+		if res == i {
+			break
+		}
+
 	}
 	if res != -1 {
 		for i := 0; i < size; i++ {
