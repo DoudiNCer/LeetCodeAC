@@ -33,40 +33,26 @@ func main() {
 	fmt.Println("closestPrimes(999998, 1000000) = ", closestPrimes(999998, 1000000))
 }
 
-var composite = [1000000]bool{}
-var found = 2
 var prime = []int{}
 
-const END = 999999
-
-func sieve(n int) {
-	fd := found
-	if n <= found {
-		return
-	}
-	if n >= END {
-		n = END
-	}
+func init() {
+	var composite = [1000000]bool{}
+	var found = 2
+	n := 999999
 	for found <= n {
 		if composite[found] {
 			found++
 			continue
 		}
-		for i := found * 2; i <= END; i += found {
+		prime = append(prime, found)
+		for i := found * 2; i <= n; i += found {
 			composite[i] = true
 		}
 		found++
 	}
-	for fd <= n {
-		if !composite[fd] {
-			prime = append(prime, fd)
-		}
-		fd++
-	}
 }
 
 func closestPrimes(left int, right int) []int {
-	sieve(right)
 	l := 0
 	for i := range prime {
 		if prime[i] >= left {
