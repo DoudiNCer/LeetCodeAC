@@ -43,14 +43,8 @@ func main() {
 
 func sumOfBeauties(nums []int) int {
 	n := len(nums)
-	maxp := make([]int, 0, n)
 	mins := make([]int, n)
-	for i, max := 0, nums[0]; i < n; i++ {
-		maxp = append(maxp, max)
-		if max < nums[i] {
-			max = nums[i]
-		}
-	}
+
 	for i, min := n-1, nums[n-1]; i >= 0; i-- {
 		mins[i] = min
 		if min > nums[i] {
@@ -58,11 +52,14 @@ func sumOfBeauties(nums []int) int {
 		}
 	}
 	res := 0
-	for i := 1; i < n-1; i++ {
-		if nums[i] > maxp[i] && nums[i] < mins[i] {
+	for i, max := 1, nums[0]; i < n-1; i++ {
+		if max < nums[i] && nums[i] < mins[i] {
 			res += 2
 		} else if nums[i-1] < nums[i] && nums[i] < nums[i+1] {
 			res++
+		}
+		if max < nums[i] {
+			max = nums[i]
 		}
 	}
 	return res
