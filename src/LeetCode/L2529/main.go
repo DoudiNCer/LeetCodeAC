@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
 给你一个按 非递减顺序 排列的数组 nums ，返回正整数数目和负整数数目中的最大值。
@@ -34,21 +37,19 @@ import "fmt"
 */
 func main() {
 	fmt.Println("maximumCount([]int{-2, -1, -1, 1, 2, 3}) = ", maximumCount([]int{-2, -1, -1, 1, 2, 3}))
+	fmt.Println("maximumCount([]int{0, 0, 0, 0}) = ", maximumCount([]int{0, 0, 0, 0}))
 }
 
 func maximumCount(nums []int) int {
-	pos := 0
-	neg := 0
-	for _, num := range nums {
-		if num > 0 {
-			pos += 1
-		} else if num < 0 {
-			neg += 1
-		}
+	x := sort.Search(len(nums), func(i int) bool {
+		return nums[i] >= 0
+	})
+	y := sort.Search(len(nums), func(i int) bool {
+		return nums[i] > 0
+	})
+	y = len(nums) - y
+	if x > y {
+		return x
 	}
-	if pos > neg {
-		return pos
-	} else {
-		return neg
-	}
+	return y
 }
