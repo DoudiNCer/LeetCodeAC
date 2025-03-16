@@ -63,7 +63,7 @@ func repairCars(ranks []int, cars int) int64 {
 		m := l + (r-l)/2
 		cnt := 0
 		for _, rank := range ranks {
-			cnt += sqrt(m / int64(rank))
+			cnt += int(math.Sqrt(float64(m / int64(rank))))
 			if cnt > cars {
 				break
 			}
@@ -78,35 +78,4 @@ func repairCars(ranks []int, cars int) int64 {
 		}
 	}
 	return res
-}
-
-func sqrt(tm int64) int {
-	if tm == 0 {
-		return 0
-	}
-	if tm < 4 {
-		return int(1)
-	}
-	res := int64(1)
-	l, r := int64(1), tm/2
-	if r > int64(math.MaxInt32) {
-		r = int64(math.MaxInt32)
-	}
-	for l <= r {
-		m := l + (r-l)/2
-		mm := m * m
-		if mm == tm {
-			res = m
-			break
-		}
-		if mm > tm {
-			r = m - 1
-		} else {
-			if res < m {
-				res = m
-			}
-			l = m + 1
-		}
-	}
-	return int(res)
 }
