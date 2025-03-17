@@ -50,13 +50,9 @@ func main() {
 }
 
 func minSwaps(s string) int {
-	n := len(s)
-	ch := []byte(s)
 	res := 0
-	cnt := 0
-	r := n - 1
-	for l := 0; l < r; l++ {
-		if ch[l] == '[' {
+	for l, cnt, r := 0, 0, len(s)-1; l < r; l++ {
+		if s[l] == '[' {
 			cnt--
 			continue
 		}
@@ -64,11 +60,11 @@ func minSwaps(s string) int {
 			cnt++
 			continue
 		}
-		for ch[r] == ']' {
+		for s[r] == ']' {
 			r--
 		}
-		ch[l], ch[r] = ch[r], ch[l]
 		res++
+		r--
 		cnt--
 	}
 	return res
