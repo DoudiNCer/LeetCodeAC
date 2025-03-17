@@ -38,13 +38,16 @@ func main() {
 }
 
 func divideArray(nums []int) bool {
-	mp := make(map[int]bool)
+	mp := make([]bool, 501)
+	cnt := 0
 	for _, num := range nums {
 		if mp[num] {
-			delete(mp, num)
+			mp[num] = false
+			cnt--
 		} else {
 			mp[num] = true
+			cnt++
 		}
 	}
-	return len(mp) == 0
+	return cnt == 0
 }
