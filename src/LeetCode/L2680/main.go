@@ -34,22 +34,17 @@ func main() {
 
 func maximumOr(nums []int, k int) int64 {
 	n := len(nums)
-	fix := make([][]int, 2)
-	fix[0] = make([]int, n)
-	fix[1] = make([]int, n)
-	for i, f := 0, 0; i < n; i++ {
-		fix[0][i] = f
-		f |= nums[i]
-	}
+	fix := make([]int, n)
 	for i, f := n-1, 0; i >= 0; i-- {
-		fix[1][i] = f
+		fix[i] = f
 		f |= nums[i]
 	}
 	res := int64(0)
-	for i := 0; i < n; i++ {
+	for i, f := 0, 0; i < n; i++ {
 		r := int64(nums[i]) << k
-		r |= int64(fix[0][i])
-		r |= int64(fix[1][i])
+		r |= int64(fix[i])
+		r |= f
+		f |= nums[i]
 		if r > res {
 			res = r
 		}
