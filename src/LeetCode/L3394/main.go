@@ -81,20 +81,26 @@ func checkValidCuts(n int, rectangles [][]int) bool {
 		pts = append(pts, p)
 	}
 	sort.Ints(pts)
-	pts = pts[:len(pts)-1]
-	ccnt := 0
-	pcnt := 0
-	for _, p := range pts {
-		if md[p] > 0 {
-			pcnt -= md[p]
-			if pcnt == 0 {
-				ccnt++
-				if ccnt == 2 {
-					return true
+	check := func() bool {
+		pts = pts[:len(pts)-1]
+		ccnt := 0
+		pcnt := 0
+		for _, p := range pts {
+			if md[p] > 0 {
+				pcnt -= md[p]
+				if pcnt == 0 {
+					ccnt++
+					if ccnt == 2 {
+						return true
+					}
 				}
 			}
+			pcnt += ma[p]
 		}
-		pcnt += ma[p]
+		return false
+	}
+	if check() {
+		return true
 	}
 	ptm = make(map[int]struct{})
 	ma = make(map[int]int)
@@ -111,20 +117,5 @@ func checkValidCuts(n int, rectangles [][]int) bool {
 		pts = append(pts, p)
 	}
 	sort.Ints(pts)
-	pts = pts[:len(pts)-1]
-	ccnt = 0
-	pcnt = 0
-	for _, p := range pts {
-		if md[p] > 0 {
-			pcnt -= md[p]
-			if pcnt == 0 {
-				ccnt++
-				if ccnt == 2 {
-					return true
-				}
-			}
-		}
-		pcnt += ma[p]
-	}
-	return false
+	return check()
 }
