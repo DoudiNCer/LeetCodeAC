@@ -41,13 +41,7 @@ func main() {
 
 func minimumCost(s string) int64 {
 	n := len(s)
-	pre, suf := make([]int64, n), make([]int64, n)
-	for i := 1; i < n; i++ {
-		pre[i] = pre[i-1]
-		if s[i-1] != s[i] {
-			pre[i] += int64(i)
-		}
-	}
+	suf := make([]int64, n)
 	for i := n - 2; i >= 0; i-- {
 		suf[i] = suf[i+1]
 		if s[i+1] != s[i] {
@@ -55,8 +49,11 @@ func minimumCost(s string) int64 {
 		}
 	}
 	res := suf[0]
-	for i := 1; i < n; i++ {
-		if r := pre[i] + suf[i]; r < res {
+	for p, i := int64(0), 1; i < n; i++ {
+		if s[i-1] != s[i] {
+			p += int64(i)
+		}
+		if r := p + suf[i]; r < res {
 			res = r
 		}
 	}
