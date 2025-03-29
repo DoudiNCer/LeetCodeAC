@@ -64,11 +64,10 @@ func maxPoints(grid [][]int, queries []int) []int {
 		return id / n, id % n
 	}
 	cnt := 0
-	visited := make([]bool, m*n)
-	visited[idx(0, 0)] = true
 	mh := &MinHeap{}
 	heap.Init(mh)
 	heap.Push(mh, []int{grid[0][0], idx(0, 0)})
+	grid[0][0] = 0
 	for x := 0; x < k; x++ {
 		que := queries[ps[x]]
 		for mh.Len() > 0 && (*mh)[0][0] < que {
@@ -77,11 +76,11 @@ func maxPoints(grid [][]int, queries []int) []int {
 			cnt++
 			for d := range df {
 				i, j := i+df[d][0], j+df[d][1]
-				if i < 0 || i >= m || j < 0 || j >= n || visited[idx(i, j)] {
+				if i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0 {
 					continue
 				}
 				heap.Push(mh, []int{grid[i][j], idx(i, j)})
-				visited[idx(i, j)] = true
+				grid[i][j] = 0
 			}
 		}
 		ans[ps[x]] = cnt
