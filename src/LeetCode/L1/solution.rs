@@ -8,13 +8,10 @@ impl Solution {
             hm.insert(v, i as i32);
         }
         for (i, &v) in nums.iter().enumerate() {
-            match hm.get(&(target - v)) {
-                None => {}
-                Some(j) => {
-                    let ii = i as i32;
-                    if ii != *j {
-                        return vec![i as i32, *j]
-                    }
+            if let Some(j) = hm.get(&(target - v)){
+                let ii = i as i32;
+                if ii != *j {
+                    return vec![i as i32, *j]
                 }
             }
         }
