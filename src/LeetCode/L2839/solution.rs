@@ -19,23 +19,17 @@ impl Solution {
         if s1 == s2 {
             return true;
         }
-        unsafe {
-            let mut sb = s2.as_bytes().to_vec();
-            sb.swap(0, 2);
-            if String::from_utf8(Vec::from(sb)) == Ok(s1.clone()) {
-                return true;
-            }
+        let sb1 = s1.as_bytes();
+        let sb2 = s2.as_bytes();
+
+        if sb1[0] == sb2[0] && sb1[2] == sb2[2] && sb1[1] == sb2[3] && sb1[3] == sb2[1] {
+            return true
         }
-        unsafe {
-            let mut sb = s2.as_bytes().to_vec();
-            sb.swap(1, 3);
-            if String::from_utf8(Vec::from(sb.clone())) == Ok(s1.clone()) {
-                return true;
-            }
-            sb.swap(0, 2);
-            if String::from_utf8(Vec::from(sb)) == Ok(s1) {
-                return true;
-            }
+        if sb1[0] == sb2[2] && sb1[2] == sb2[0] && sb1[1] == sb2[1] && sb1[3] == sb2[3] {
+            return true
+        }
+        if sb1[0] == sb2[2] && sb1[2] == sb2[0] && sb1[1] == sb2[3] && sb1[3] == sb2[1] {
+            return true
         }
         false
     }
