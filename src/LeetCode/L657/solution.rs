@@ -17,18 +17,19 @@ use super::Solution;
 
 impl Solution {
     pub fn judge_circle(moves: String) -> bool {
-        let mut loc = (0, 0);
+        let mut px = 0;
+        let mut py = 0;
 
         for c in moves.chars() {
             match c {
-                'L' => { loc.0 = loc.0 - 1 }
-                'R' => { loc.0 = loc.0 + 1 }
-                'U' => { loc.1 = loc.1 + 1 }
-                'D' => { loc.1 = loc.1 - 1 }
+                'L' => { px -= 1 }
+                'R' => { px += 1 }
+                'U' => { py += 1 }
+                'D' => {  py -= 1 }
                 _ => {}
             }
         }
 
-        loc.0 == 0 && loc.1 == 0
+       px == 0 && py == 0
     }
 }
