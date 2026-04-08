@@ -27,15 +27,15 @@ impl Solution {
         const divisor: i64 = 1_000_000_007;
         let mut nums = nums;
         for query in queries {
-            let mut l = *query.get(0).unwrap();
-            let r = *query.get(1).unwrap();
-            let k = *query.get(2).unwrap();
-            let v = *query.get(3).unwrap();
+            let mut l = query[0] as usize;
+            let r = query[1] as usize;
+            let k = query[2] as usize;
+            let v = query[3] as i64;
             while l <= r {
-                let mut num:i64 = nums[l as usize] as i64;
-                num *= v as i64;
+                let mut num:i64 = nums[l] as i64;
+                num *= v;
                 num %= divisor;
-                nums[l as usize] = num as i32;
+                nums[l] = num as i32;
                 l += k;
             }
         }
