@@ -7,7 +7,7 @@ use super::Solution;
 
   设定 idx = li。
   当 idx <= ri 时：
-  更新：nums[idx] = (nums[idx] * vi) % (109 + 7)
+  更新：nums[idx] = (nums[idx] * vi) % (10^9 + 7)
   将 idx += ki。
   在处理完所有查询后，返回数组 nums 中所有元素的 按位异或 结果。
 
