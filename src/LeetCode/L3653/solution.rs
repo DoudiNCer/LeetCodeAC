@@ -24,7 +24,7 @@ use super::Solution;
 
 impl Solution {
     pub fn xor_after_queries(nums: Vec<i32>, queries: Vec<Vec<i32>>) -> i32 {
-        const divisor: i64 = 1_000_000_007;
+        const MOD: i64 = 1_000_000_007;
         let mut nums = nums;
         for query in queries {
             let mut l = query[0] as usize;
@@ -34,7 +34,7 @@ impl Solution {
             while l <= r {
                 let mut num:i64 = nums[l] as i64;
                 num *= v;
-                num %= divisor;
+                num %= MOD;
                 nums[l] = num as i32;
                 l += k;
             }
