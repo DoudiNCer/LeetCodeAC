@@ -13,12 +13,12 @@ use super::Solution;
 
 impl Solution {
     pub fn pivot_integer(n: i32) -> i32 {
-        let target = (n * n + n) >> 1;
-        for x in 1..=n {
-            if x * x == target {
-                return x
-            }
+        let target = (n * n + n) / 2;
+        let x = target.isqrt();
+        if x * x == target {
+            x
+        } else {
+            -1
         }
-        -1
     }
 }
