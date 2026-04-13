@@ -17,18 +17,13 @@ use super::Solution;
 
 impl Solution {
     pub fn get_min_distance(nums: Vec<i32>, target: i32, start: i32) -> i32 {
-        let start_u = start as usize;
-        let maxLen = start_u.max(nums.len() - start_u - 1);
+        let maxLen = (start).max(nums.len() as i32 - start - 1);
         for i in 0..=maxLen {
-            if start_u + i < nums.len() {
-                if nums[start_u + i] == target {
-                    return i as i32
-                }
+            if start + i < nums.len() as i32 && nums[(start + i) as usize] == target {
+                return i;
             }
-            if start - i as i32 >= 0 {
-                if nums[start_u - i] == target {
-                    return i as i32
-                }
+            if start - i >= 0 && nums[(start - i) as usize] == target {
+                return i;
             }
         }
         -1
