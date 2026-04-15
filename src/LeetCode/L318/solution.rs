@@ -10,10 +10,9 @@ use super::Solution;
     words[i] 仅包含小写字母
 */
 
-use std::collections::HashMap;
 impl Solution {
     pub fn max_product(words: Vec<String>) -> i32 {
-        let mut hm:HashMap<u32, i32> = HashMap::new();
+        let mut bm: Vec<(u32, i32)> = Vec::new();
         for word in words {
             let wb = word.bytes();
             let len = wb.len() as i32;
@@ -21,17 +20,16 @@ impl Solution {
             for x in wb {
                 cb |= 1 << (x - b'a')
             }
-            hm.entry(cb).and_modify(|v| *v = (*v).max(len)).or_insert(len);
+            bm.push((cb, len))
         }
-        let mut keys: Vec<u32> = hm.keys().cloned().collect();
-        keys.sort_by(|a, b| hm[b].cmp(&hm[a]));
+        bm.sort_by(|a, b| b.1.cmp(&a.1));
         let mut result = 0;
-        for (i, cba) in keys.iter().enumerate() {
-            for j in (i + 1)..keys.len() {
-                let cbb = keys[j];
-                if cba & cbb == 0 {
-                    result = result.max(hm[cba] * hm[&cbb]);
-                    break
+        for (i, (bi, mi)) in bm.iter().enumerate() {
+            for j in (i + 1)..bm.len() {
+                let (bj, mj) = bm[j];
+                if bi & bj == 0 {
+                    result = result.max(mi * mj);
+                    break;
                 }
             }
         }
