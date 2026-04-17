@@ -23,7 +23,7 @@ impl Solution {
     pub fn min_mirror_pair_distance(nums: Vec<i32>) -> i32 {
         let n = nums.len() as i32;
         let mut ans = n;
-        let mut rev: HashMap<i32, usize> = HashMap::new();
+        let mut rev: HashMap<i32, usize> = HashMap::with_capacity(nums.len());
 
         for (i, x) in nums.iter().enumerate() {
             if let Some(j) = rev.get(x) {
