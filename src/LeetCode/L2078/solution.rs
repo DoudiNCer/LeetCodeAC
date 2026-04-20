@@ -1,4 +1,5 @@
 use super::Solution;
+use std::ops::Rem;
 
 /*
     街上有 n 栋房子整齐地排成一列，每栋房子都粉刷上了漂亮的颜色。给你一个下标从 0 开始且长度为 n 的整数数组 colors ，其中 colors[i] 表示第  i 栋房子的颜色。
@@ -18,15 +19,17 @@ use super::Solution;
 impl Solution {
     pub fn max_distance(colors: Vec<i32>) -> i32 {
         let mut res = 0;
-        for (i, x) in colors.iter().enumerate() {
-            for (j, y) in colors.iter().enumerate().rev() {
-                if i == j {
-                    break;
-                }
-                if *x != *y {
-                    res = res.max((j - i) as i32);
-                    break;
-                }
+        let n = colors.len();
+        for i in (1..n).rev() {
+            if colors[i] != colors[0] {
+                res = i as i32;
+                break;
+            }
+        }
+        for i in (0..n - 1) {
+            if colors[i] != colors[n - 1] {
+                res = res.max((n - 1 - i) as i32);
+                break;
             }
         }
         res
