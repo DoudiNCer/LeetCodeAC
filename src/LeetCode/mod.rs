@@ -15,6 +15,7 @@ pub mod L1929;
 pub mod L2069;
 pub mod L2078;
 pub mod L2087;
+pub mod L2452;
 pub mod L2485;
 pub mod L2515;
 pub mod L2839;
