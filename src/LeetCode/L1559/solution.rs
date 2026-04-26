@@ -63,6 +63,9 @@ impl Solution {
         for x in (0..m) {
             for y in (0..n) {
                 let p = (x as i32, y as i32);
+                if let Some(_) = found.get(&p) {
+                    continue;
+                }
                 let res = Self::dfs(&grid, &mut found, p, 1);
                 if res {
                     return true;
