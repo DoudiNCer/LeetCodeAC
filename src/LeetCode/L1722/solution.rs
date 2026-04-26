@@ -19,6 +19,7 @@ use super::Solution;
 */
 
 use std::collections::HashMap;
+
 struct UnionFindSet {
     root_arr: Vec<i32>,
 }
@@ -69,7 +70,7 @@ impl Solution {
                 continue;
             }
             let p = set.find(i as i32);
-            let mut m = hm.entry(p).or_insert(HashMap::new());
+            let m = hm.entry(p).or_insert(HashMap::new());
             m.entry(*a)
                 .and_modify(|c| {
                     *c += 1;

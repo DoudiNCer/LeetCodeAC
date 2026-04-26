@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use super::Solution;
 
 /*
@@ -22,6 +21,8 @@ use super::Solution;
   答案保证小于 2^31
 */
 
+use std::collections::HashMap;
+
 impl Solution {
     pub fn robot_sim(commands: Vec<i32>, obstacles: Vec<Vec<i32>>) -> i32 {
         let dir_list = vec![(0, 1), (1, 0), (0, -1), (-1, 0)];
@@ -29,13 +30,17 @@ impl Solution {
         let mut px = 0;
         let mut py = 0;
         let mut res = 0;
-        let mut obhx :HashMap<i32, HashMap<(i32,i32), bool>> = HashMap::new();
-        let mut obhy :HashMap<i32, HashMap<(i32,i32), bool>> = HashMap::new();
+        let mut obhx: HashMap<i32, HashMap<(i32, i32), bool>> = HashMap::new();
+        let mut obhy: HashMap<i32, HashMap<(i32, i32), bool>> = HashMap::new();
         for ob in obstacles {
             let obx = ob.get(0).unwrap();
             let oby = ob.get(1).unwrap();
-            obhx.entry(*obx).or_insert_with(HashMap::new).insert((*obx, *oby), true);
-            obhy.entry(*oby).or_insert_with(HashMap::new).insert((*obx, *oby), true);
+            obhx.entry(*obx)
+                .or_insert_with(HashMap::new)
+                .insert((*obx, *oby), true);
+            obhy.entry(*oby)
+                .or_insert_with(HashMap::new)
+                .insert((*obx, *oby), true);
         }
         for x in commands {
             match x {
@@ -56,14 +61,10 @@ impl Solution {
                                 py += x * dy;
                             }
                             Some(obxy) => {
-                                for i in 0..x {
+                                for _ in 0..x {
                                     match obxy.get(&(px, py + dy)) {
-                                        None => {
-                                            py += dy
-                                        }
-                                        Some(_) => {
-                                            break
-                                        }
+                                        None => py += dy,
+                                        Some(_) => break,
                                     }
                                 }
                             }
@@ -77,12 +78,8 @@ impl Solution {
                             Some(obxy) => {
                                 for i in 0..x {
                                     match obxy.get(&(px + dx, py)) {
-                                        None => {
-                                            px += dx
-                                        }
-                                        Some(_) => {
-                                            break
-                                        }
+                                        None => px += dx,
+                                        Some(_) => break,
                                     }
                                 }
                             }

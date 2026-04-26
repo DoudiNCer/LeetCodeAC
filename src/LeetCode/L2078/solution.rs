@@ -1,5 +1,4 @@
 use super::Solution;
-use std::ops::Rem;
 
 /*
     街上有 n 栋房子整齐地排成一列，每栋房子都粉刷上了漂亮的颜色。给你一个下标从 0 开始且长度为 n 的整数数组 colors ，其中 colors[i] 表示第  i 栋房子的颜色。
@@ -26,7 +25,7 @@ impl Solution {
                 break;
             }
         }
-        for i in (0..n - 1) {
+        for i in 0..n - 1 {
             if colors[i] != colors[n - 1] {
                 res = res.max((n - 1 - i) as i32);
                 break;

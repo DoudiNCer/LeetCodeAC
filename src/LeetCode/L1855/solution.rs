@@ -1,5 +1,4 @@
 use super::Solution;
-use std::f32::MAX_10_EXP;
 
 /*
     给你两个 非递增 的整数数组 nums1​​​​​​ 和 nums2​​​​​​ ，数组下标均 从 0 开始 计数。
@@ -31,7 +30,7 @@ impl Solution {
                 break;
             }
             if ii <= j {
-                res = res.max((j - ii))
+                res = res.max(j - ii)
             }
         }
         res

@@ -26,27 +26,26 @@ struct Robot {
     height: i32,
     loc: i32,
     pos: Option<Vec<i32>>,
-    dir: Option<String>
+    dir: Option<String>,
 }
-
 
 /**
  * `&self` means the method takes an immutable reference.
  * If you need a mutable reference, change it to `&mut self` instead.
  */
 impl Robot {
-
     fn new(width: i32, height: i32) -> Self {
-        Robot{
-            width, height,
+        Robot {
+            width,
+            height,
             loc: 0,
             pos: Some(vec![0, 0]),
-            dir: Some(String::from("East"))
+            dir: Some(String::from("East")),
         }
     }
 
     fn step(&mut self, num: i32) {
-        self.loc += (num - 1);
+        self.loc += num - 1;
         self.loc = self.loc % ((self.width + self.height - 2) << 1) + 1;
         self.pos = None;
         self.dir = None;
@@ -79,7 +78,7 @@ impl Robot {
             py = self.loc - self.width + 1;
             dir = String::from("North");
         } else if self.loc < self.width + self.height + self.width - 2 {
-            px = self.height + self.width +  self.width - 3 - self.loc;
+            px = self.height + self.width + self.width - 3 - self.loc;
             py = self.height - 1;
             dir = String::from("West");
         } else {
