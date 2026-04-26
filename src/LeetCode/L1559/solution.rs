@@ -1,3 +1,4 @@
+use std::process::id;
 use super::Solution;
 
 /*
@@ -18,57 +19,60 @@ use super::Solution;
     grid 只包含小写英文字母。
 */
 
-use std::collections::HashMap;
+struct UnionFindSet {
+    root_arr: Vec<i32>,
+}
+
+impl UnionFindSet {
+    fn new(n: i32) -> UnionFindSet {
+        UnionFindSet {
+            root_arr: (0..n).collect(),
+        }
+    }
+
+    fn find(&mut self, num: i32) -> i32 {
+        let p = self.root_arr[num as usize];
+        if p == num {
+            return p;
+        }
+        let pp = self.find(p);
+        if p != pp {
+            self.root_arr[num as usize] = pp
+        }
+        pp
+    }
+
+    fn union(&mut self, a: i32, b: i32) {
+        let (pa, pb) = (self.find(a), self.find(b));
+        if pa != pb {
+            self.root_arr[pa as usize] = pb
+        }
+    }
+}
 
 impl Solution {
-    fn dfs(
-        grid: &Vec<Vec<char>>,
-        found: &mut HashMap<(i32, i32), i32>,
-        p: (i32, i32),
-        depth: i32,
-    ) -> bool {
-        let (m, n) = (grid.len(), grid[0].len());
-        found.insert(p, depth);
-        let (px, py) = p;
-        let ch = grid[px as usize][py as usize];
-        for (dx, dy) in [(-1, 0), (1, 0), (0, -1), (0, 1)] {
-            let (qx, qy) = (px + dx, py + dy);
-            if qx < 0 || qx >= m as i32 || qy < 0 || qy >= n as i32 {
-                continue;
-            }
-            if grid[qx as usize][qy as usize] != ch {
-                continue;
-            }
-            let q = (qx, qy);
-            if let Some(d) = found.get(&q) {
-                if *d > 0 {
-                    if depth - *d >= 3 {
-                        return true;
-                    }
-                    continue;
-                }
-                continue;
-            }
-            let res = Self::dfs(grid, found, q, depth + 1);
-            if res {
-                return true;
-            }
-        }
-        found.insert(p, 0);
-        false
-    }
     pub fn contains_cycle(grid: Vec<Vec<char>>) -> bool {
         let (m, n) = (grid.len(), grid[0].len());
-        let mut found: HashMap<(i32, i32), i32> = HashMap::with_capacity(m * n);
-        for x in (0..m) {
-            for y in (0..n) {
-                let p = (x as i32, y as i32);
-                if let Some(_) = found.get(&p) {
-                    continue;
-                }
-                let res = Self::dfs(&grid, &mut found, p, 1);
-                if res {
-                    return true;
+        let idx = |x, y| (x + m * y) as i32;
+        let mut ufs = UnionFindSet::new((m * n) as i32);
+        for x in 0..m {
+            for y in 0..n {
+                let id = idx(x, y);
+                let r = ufs.find(id);
+                for (dx, dy) in [(0, 1), (1, 0)] {
+                    let (px, py) = (x + dx, y + dy);
+                    if px >= m || py >= n {
+                        continue
+                    }
+                    if grid[x][y] != grid[px][py] {
+                        continue
+                    }
+                    let idp = idx(px, py);
+                    let rd = ufs.find(idp);
+                    if rd == r {
+                        return true
+                    }
+                    ufs.union(id, idp);
                 }
             }
         }

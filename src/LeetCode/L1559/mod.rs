@@ -51,4 +51,11 @@ mod tests {
 
         assert_eq!(result, true);
     }
+    #[test]
+    fn case5() {
+        let grid = vec![vec!['b'], vec!['b']];
+        let result = Solution::contains_cycle(grid);
+
+        assert_eq!(result, false);
+    }
 }
