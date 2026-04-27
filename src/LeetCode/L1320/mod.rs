@@ -5,7 +5,7 @@ mod tests {
     use super::*;
     #[test]
     fn case1() {
-       let word = String::from("CAKE");
+        let word = String::from("CAKE");
         let result = Solution::minimum_distance(word);
 
         assert_eq!(result, 3);
