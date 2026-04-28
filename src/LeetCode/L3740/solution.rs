@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use super::Solution;
+use std::collections::HashMap;
 
 /*
   给你一个整数数组 nums。
@@ -36,7 +36,7 @@ impl Solution {
         }
 
         if result == n {
-            return -1
+            return -1;
         }
         result << 1
     }

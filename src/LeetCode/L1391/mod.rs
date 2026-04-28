@@ -33,7 +33,8 @@ mod tests {
     }
     #[test]
     fn case5() {
-        let grid = vec![vec![2], vec![2], vec![2], vec![2], vec![2], vec![2], vec![6]];
+        let grid = vec![vec![2], vec![2], vec![2], vec![2],
+                        vec![2], vec![2], vec![6]];
         let result = Solution::has_valid_path(grid);
 
         assert_eq!(result, true);

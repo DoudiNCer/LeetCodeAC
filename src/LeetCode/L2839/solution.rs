@@ -23,13 +23,13 @@ impl Solution {
         let sb2 = s2.as_bytes();
 
         if sb1[0] == sb2[0] && sb1[2] == sb2[2] && sb1[1] == sb2[3] && sb1[3] == sb2[1] {
-            return true
+            return true;
         }
         if sb1[0] == sb2[2] && sb1[2] == sb2[0] && sb1[1] == sb2[1] && sb1[3] == sb2[3] {
-            return true
+            return true;
         }
         if sb1[0] == sb2[2] && sb1[2] == sb2[0] && sb1[1] == sb2[3] && sb1[3] == sb2[1] {
-            return true
+            return true;
         }
         false
     }

@@ -15,10 +15,6 @@ impl Solution {
     pub fn pivot_integer(n: i32) -> i32 {
         let target = (n * n + n) / 2;
         let x = target.isqrt();
-        if x * x == target {
-            x
-        } else {
-            -1
-        }
+        if x * x == target { x } else { -1 }
     }
 }

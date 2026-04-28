@@ -24,10 +24,10 @@ impl Solution {
         }
         let sb1 = s1.as_bytes();
         let sb2 = s2.as_bytes();
-        let mut sb1e :Vec<u8> = Vec::new();
-        let mut sb1o :Vec<u8> = Vec::new();
-        let mut sb2e :Vec<u8> = Vec::new();
-        let mut sb2o :Vec<u8> = Vec::new();
+        let mut sb1e: Vec<u8> = Vec::new();
+        let mut sb1o: Vec<u8> = Vec::new();
+        let mut sb2e: Vec<u8> = Vec::new();
+        let mut sb2o: Vec<u8> = Vec::new();
         for (i, b) in sb1.iter().enumerate() {
             if i % 2 == 0 {
                 sb1e.push(*b)
@@ -48,12 +48,12 @@ impl Solution {
         sb2e.sort();
         for i in 0..sb1o.len().max(sb2o.len()) {
             if sb1o.get(i) != sb2o.get(i) {
-                return false
+                return false;
             }
         }
         for i in 0..sb1e.len().max(sb2e.len()) {
             if sb1e.get(i) != sb2e.get(i) {
-                return false
+                return false;
             }
         }
         true

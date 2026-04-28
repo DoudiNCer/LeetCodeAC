@@ -32,7 +32,7 @@ impl Solution {
             let k = query[2] as usize;
             let v = query[3] as i64;
             while l <= r {
-                let mut num:i64 = nums[l] as i64;
+                let mut num: i64 = nums[l] as i64;
                 num *= v;
                 num %= MOD;
                 nums[l] = num as i32;

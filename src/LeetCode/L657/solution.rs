@@ -22,14 +22,14 @@ impl Solution {
 
         for c in moves.chars() {
             match c {
-                'L' => { px -= 1 }
-                'R' => { px += 1 }
-                'U' => { py += 1 }
-                'D' => {  py -=  1 }
+                'L' => px -= 1,
+                'R' => px += 1,
+                'U' => py += 1,
+                'D' => py -= 1,
                 _ => {}
             }
         }
 
-       px == 0 && py == 0
+        px == 0 && py == 0
     }
 }

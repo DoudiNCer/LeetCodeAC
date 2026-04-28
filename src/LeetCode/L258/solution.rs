@@ -1,6 +1,5 @@
 use super::Solution;
 
-
 /*
     给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。
 */
@@ -16,9 +15,8 @@ impl Solution {
                 }
                 nn += mnum % 10;
                 mnum /= 10;
-
             }
-            return Solution::add_digits(nn)
+            return Solution::add_digits(nn);
         }
         num
     }

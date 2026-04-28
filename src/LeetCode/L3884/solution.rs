@@ -19,7 +19,7 @@ impl Solution {
         let n = sb.len();
         for i in 0..(n / 2 + 1) {
             if sb[i] == sb[n - i - 1] {
-                return i as i32
+                return i as i32;
             }
         }
         -1

@@ -1,6 +1,5 @@
 use super::Solution;
 
-
 /*
     给定一个二进制数组 nums ， 计算其中最大连续 1 的个数。
 
@@ -25,7 +24,7 @@ impl Solution {
             }
         }
         if result < cnt {
-            return cnt
+            return cnt;
         }
         result
     }

@@ -18,11 +18,11 @@ impl Solution {
         let mut arr = arr;
         arr.sort();
         if arr.len() < 3 {
-            return true
+            return true;
         }
         for i in 1..(arr.len() - 1) as usize {
             if arr[i + 1] - arr[i] != arr[i] - arr[i - 1] {
-                return false
+                return false;
             }
         }
         true

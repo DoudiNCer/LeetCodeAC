@@ -22,10 +22,10 @@ impl Solution {
 
         for i in 0..n {
             if words[(n + start_index as usize - i) % n] == target {
-                return i.min(n - i) as i32
+                return i.min(n - i) as i32;
             }
             if words[(start_index as usize + i) % n] == target {
-                return i.min(n - i) as i32
+                return i.min(n - i) as i32;
             }
         }
 

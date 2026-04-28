@@ -1,5 +1,5 @@
-use std::process::id;
 use super::Solution;
+use std::process::id;
 
 /*
     给你一个二维字符网格数组 grid ，大小为 m x n ，你需要检查 grid 中是否存在 相同值 形成的环。
@@ -62,15 +62,15 @@ impl Solution {
                 for (dx, dy) in [(0, 1), (1, 0)] {
                     let (px, py) = (x + dx, y + dy);
                     if px >= m || py >= n {
-                        continue
+                        continue;
                     }
                     if grid[x][y] != grid[px][py] {
-                        continue
+                        continue;
                     }
                     let idp = idx(px, py);
                     let rd = ufs.find(idp);
                     if rd == r {
-                        return true
+                        return true;
                     }
                     ufs.union(id, idp);
                 }

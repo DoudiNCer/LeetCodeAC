@@ -22,7 +22,12 @@ use super::Solution;
 */
 
 impl Solution {
-    pub fn min_cost(start_pos: Vec<i32>, home_pos: Vec<i32>, row_costs: Vec<i32>, col_costs: Vec<i32>) -> i32 {
+    pub fn min_cost(
+        start_pos: Vec<i32>,
+        home_pos: Vec<i32>,
+        row_costs: Vec<i32>,
+        col_costs: Vec<i32>,
+    ) -> i32 {
         let mut res = 0;
         let hx = home_pos.get(0).unwrap();
         let sx = start_pos.get(0).unwrap();
@@ -31,7 +36,7 @@ impl Solution {
                 res += *(row_costs.get(x as usize).unwrap())
             }
         } else if *sx > *hx {
-            for x in *hx.. (*sx) {
+            for x in *hx..(*sx) {
                 res += *(row_costs.get(x as usize).unwrap())
             }
         }
@@ -42,7 +47,7 @@ impl Solution {
                 res += *(col_costs.get(y as usize).unwrap())
             }
         } else if *sy > *hy {
-            for y in *hy.. (*sy) {
+            for y in *hy..(*sy) {
                 res += *(col_costs.get(y as usize).unwrap())
             }
         }

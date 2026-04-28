@@ -18,11 +18,14 @@ impl Solution {
         let mut idx: Vec<i32> = Vec::with_capacity(nums.len());
         let mut hm: HashMap<i32, Vec<i64>> = HashMap::new();
         for (i, num) in nums.iter().enumerate() {
-            let arr = hm.entry(*num).and_modify(|arr| {
-                let mut new = i as i64;
-                new += arr[arr.len() - 1];
-                arr.push(new);
-            }).or_insert(vec![i as i64]);
+            let arr = hm
+                .entry(*num)
+                .and_modify(|arr| {
+                    let mut new = i as i64;
+                    new += arr[arr.len() - 1];
+                    arr.push(new);
+                })
+                .or_insert(vec![i as i64]);
             idx.push(arr.len() as i32 - 1);
         }
         for (i, num) in nums.iter().enumerate() {
