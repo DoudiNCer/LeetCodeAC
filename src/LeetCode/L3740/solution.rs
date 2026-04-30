@@ -1,5 +1,4 @@
 use super::Solution;
-use std::collections::HashMap;
 
 /*
   给你一个整数数组 nums。
@@ -15,6 +14,8 @@ use std::collections::HashMap;
   1 <= n == nums.length <= 100
   1 <= nums[i] <= n
 */
+
+use std::collections::HashMap;
 
 impl Solution {
     pub fn minimum_distance(nums: Vec<i32>) -> i32 {

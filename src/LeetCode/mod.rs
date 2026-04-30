@@ -28,6 +28,7 @@ pub mod L2840;
 pub mod L3488;
 pub mod L3653;
 pub mod L3740;
+pub mod L3742;
 pub mod L3761;
 pub mod L3783;
 pub mod L3884;
