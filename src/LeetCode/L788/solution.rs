@@ -32,7 +32,7 @@ impl Solution {
                         valid = false;
                         break;
                     }
-                    (_) => {}
+                    _ => {}
                 }
             }
             if valid && diff {

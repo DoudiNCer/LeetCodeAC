@@ -76,7 +76,7 @@ impl Solution {
                                 px += x * dx;
                             }
                             Some(obxy) => {
-                                for i in 0..x {
+                                for _ in 0..x {
                                     match obxy.get(&(px + dx, py)) {
                                         None => px += dx,
                                         Some(_) => break,
