@@ -15,20 +15,20 @@ use super::Solution;
 
 impl Solution {
     pub fn separate_digits(nums: Vec<i32>) -> Vec<i32> {
-        let bits = |num| -> Vec<i32> {
-            let mut num = num;
-            let mut res = vec![];
-            while num > 0 {
-                res.push(num % 10);
-                num /= 10;
-            }
-            res.reverse();
-            res
-        };
         let mut result = vec![];
         for num in nums {
-            let mut bs = bits(num);
-            result.append(&mut bs);
+            let mut i = result.len();
+            let mut num = num;
+            while num > 0 {
+                result.push(num % 10);
+                num /= 10;
+            }
+            let mut j = result.len() - 1;
+            while i < j {
+                (result[i], result[j]) = (result[j], result[i]);
+                i += 1;
+                j -= 1;
+            }
         }
         result
     }
