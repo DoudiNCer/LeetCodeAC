@@ -32,12 +32,15 @@ impl Solution {
         for num in arr2 {
             let mut num = num;
             while num > 0 {
-                if let Some(_) = hs.get(&num) {
+                if hs.contains(&num) {
                     pre = pre.max(num);
                     break;
                 }
                 num /= 10
             }
+        }
+        if pre == 0 {
+            return 0
         }
         let mut res = 0;
         while pre > 0 {
