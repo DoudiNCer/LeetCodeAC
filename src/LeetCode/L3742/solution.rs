@@ -26,55 +26,43 @@ use super::Solution;
 impl Solution {
     pub fn max_path_score(grid: Vec<Vec<i32>>, k: i32) -> i32 {
         let (m, n) = (grid.len(), grid[0].len());
-        let mut dp: Vec<Vec<Vec<i32>>> = Vec::with_capacity(m);
-        for i in 0..m {
-            let mut dpi: Vec<Vec<i32>> = Vec::with_capacity(n);
-            for j in 0..n {
-                let mut dpj: Vec<i32> = vec![-1; (k + 1) as usize];
-                dpi.push(dpj);
-            }
-            dp.push(dpi);
-        }
+        let mut dp:Vec<Vec<i32>> = Vec::with_capacity(n);
+        dp.push(vec![0; (k + 1) as usize]);
         let (mut cost, mut score) = (0i32, 0i32);
-        dp[0][0] = vec![0; (k + 1) as usize];
-        for i in 1..m {
-            if grid[i][0] > 0 {
-                cost += 1;
-                score += grid[i][0];
-            }
-            for c in cost..=k {
-                dp[i][0][c as usize] = score;
-            }
-        }
-        (cost, score) = (0, 0);
         for j in 1..n {
+            dp.push(vec![-1; (k + 1) as usize]);
             if grid[0][j] > 0 {
                 cost += 1;
                 score += grid[0][j];
             }
             for c in cost..=k {
-                dp[0][j][c as usize] = score;
+                dp[j][c as usize] = score;
             }
         }
+        (cost, score) = (0, 0);
         for i in 1..m {
+            dp[0] = vec![-1; (k + 1) as usize];
+            if grid[i][0] > 0 {
+                cost += 1;
+                score += grid[i][0];
+            }
+            for c in cost..=k {
+                dp[0][c as usize] = score;
+            }
             for j in 1..n {
                 if grid[i][j] == 0 {
-                    // 移动该步骤无代价无收益，选择上一步最大收益作为收益
-                    dp[i][j][0] = dp[i][j][0].max(dp[i - 1][j][0]);
-                    dp[i][j][0] = dp[i][j][0].max(dp[i][j - 1][0]);
-                    for c in 1..(k + 1) as usize {
-                        dp[i][j][c] = dp[i][j][c].max(dp[i][j][c - 1]);
-                        dp[i][j][c] = dp[i][j][c].max(dp[i - 1][j][c]);
-                        dp[i][j][c] = dp[i][j][c].max(dp[i][j - 1][c]);
+                    for c in 0..=k as usize {
+                        dp[j][c] = dp[j][c].max(dp[j - 1][c])
                     }
                 } else {
-                    // 移动该步骤有代价有收益，选择有效的上一步最大收益加上本步骤收益作为收益
-                    for c in 1..(k + 1) as usize {
-                        if dp[i - 1][j][c - 1] != -1 {
-                            dp[i][j][c] = dp[i][j][c].max(dp[i - 1][j][c - 1] + grid[i][j]);
-                        }
-                        if dp[i][j - 1][c - 1] != -1 {
-                            dp[i][j][c] = dp[i][j][c].max(dp[i][j - 1][c - 1] + grid[i][j]);
+                    for c in 0..k as usize {
+                        dp[j][k as usize - c] = dp[j][k as usize - c - 1]
+                    }
+                    dp[j][0] = -1;
+                    for c in 1..=k as usize {
+                        dp[j][c] = dp[j][c].max(dp[j-1][c-1]);
+                        if dp[j][c] > -1 {
+                            dp[j][c] += grid[i][j];
                         }
                     }
                 }
@@ -82,7 +70,7 @@ impl Solution {
         }
         let mut result = -1;
         for c in 0..=k as usize {
-            result = result.max(dp[m - 1][n - 1][c])
+            result = result.max(dp[n - 1][c])
         }
         result
     }
