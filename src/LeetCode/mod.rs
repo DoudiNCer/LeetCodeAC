@@ -35,6 +35,7 @@ pub mod L2485;
 pub mod L2515;
 pub mod L2540;
 pub mod L2553;
+pub mod L2574;
 pub mod L2615;
 pub mod L2657;
 pub mod L2770;
