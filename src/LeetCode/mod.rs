@@ -51,6 +51,7 @@ pub mod L3120;
 pub mod L3121;
 pub mod L3300;
 pub mod L3488;
+pub mod L3612;
 pub mod L3633;
 pub mod L3635;
 pub mod L3653;
