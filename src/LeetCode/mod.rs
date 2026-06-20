@@ -21,6 +21,7 @@ pub mod L1665;
 pub mod L1722;
 pub mod L1732;
 pub mod L1752;
+pub mod L1840;
 pub mod L1848;
 pub mod L1855;
 pub mod L1861;
