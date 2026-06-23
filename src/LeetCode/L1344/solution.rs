@@ -1,5 +1,4 @@
 use super::Solution;
-use std::path::absolute;
 
 /*
     给你两个数 hour 和 minutes 。请你返回在时钟上，由给定时间的时针和分针组成的较小角的角度（60 单位制）。

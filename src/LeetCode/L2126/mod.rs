@@ -3,7 +3,6 @@ struct Solution;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::LinkedList;
     #[test]
     fn case1() {
         let mass = 10;

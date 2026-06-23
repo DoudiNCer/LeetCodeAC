@@ -5,7 +5,6 @@ struct Solution;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::LinkedList;
     #[test]
     fn case1() {
         let head = listnode::ListNode::from_vec(vec![5, 4, 2, 1]);

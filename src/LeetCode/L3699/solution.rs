@@ -25,25 +25,25 @@ use super::Solution;
 const MOD: i64 = 1000000007;
 impl Solution {
     pub fn zig_zag_arrays(n: i32, l: i32, r: i32) -> i32 {
-        let (l, r) = (0usize, (r - l + 1) as usize);
-        let mut dp: Vec<(Vec<i32>, Vec<i32>)> = Vec::with_capacity(n as usize);
-        dp.push((vec![1; r], vec![1; r]));
-        for i in 1..=n as usize {
-            dp.push((vec![1; r], vec![1; r]));
-            dp[i].0[0] = 0;
-            dp[i].1[r - 1] = 0;
+        let r = (r - l + 1) as usize;
+        let mut dp: ((Vec<i32>, Vec<i32>), (Vec<i32>, Vec<i32>));
+        dp = ((vec![1; r], vec![1; r]), (vec![1; r], vec![1; r]));
+        for _ in 1..=n as usize {
+            dp.1.0[0] = 0;
+            dp.1.1[r - 1] = 0;
             for j in 1..r {
-                let mut dp0 = dp[i].0[j - 1] as i64 + dp[i - 1].1[j - 1] as i64;
-                let mut dp1 = dp[i].1[r - j] as i64 + dp[i - 1].0[r - j] as i64;
+                let mut dp0 = dp.1.0[j - 1] as i64 + dp.0.1[j - 1] as i64;
+                let mut dp1 = dp.1.1[r - j] as i64 + dp.0.0[r - j] as i64;
                 dp0 %= MOD;
                 dp1 %= MOD;
-                dp[i].0[j] = dp0 as i32;
-                dp[i].1[r - 1 - j] = dp1 as i32;
+                dp.1.0[j] = dp0 as i32;
+                dp.1.1[r - 1 - j] = dp1 as i32;
             }
+            dp = (dp.1, dp.0);
         }
         let mut res = 0i64;
-        res += dp[n as usize].0[r - 1] as i64;
-        res += dp[n as usize].1[0] as i64;
+        res += dp.0.0[r - 1] as i64;
+        res += dp.0.1[0] as i64;
         res %= MOD;
         res as i32
     }

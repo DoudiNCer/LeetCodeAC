@@ -16,21 +16,21 @@ use super::Solution;
     1 <= s.length <= 20
     s 只包含小写英文字母和特殊字符 *、# 和 %。
 */
-const POP: u8 = 42; // *
-const CPY: u8 = 35; // #
-const REV: u8 = 37; // %
+const POP: u8 = b'*';
+const CPY: u8 = b'#';
+const REV: u8 = b'%';
 impl Solution {
     pub fn process_str(s: String) -> String {
         let mut rb: Vec<u8> = Vec::new();
         for x in s.as_bytes() {
             match *x {
-                (POP) => {
+                POP => {
                     rb.pop();
                 }
-                (CPY) => {
+                CPY => {
                     rb.append(&mut rb.clone());
                 }
-                (REV) => {
+                REV => {
                     rb.reverse();
                 }
                 _ => rb.push(*x),

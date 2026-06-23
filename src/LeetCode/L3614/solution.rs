@@ -21,23 +21,23 @@ use super::Solution;
     0 <= k <= 10^15
     处理 s 后得到的 result 的长度不超过 10^15。
 */
-const POP: u8 = 42; // *
-const CPY: u8 = 35; // #
-const REV: u8 = 37; // %
+const POP: u8 = b'*';
+const CPY: u8 = b'#';
+const REV: u8 = b'%';
 impl Solution {
     pub fn process_str(s: String, k: i64) -> char {
         let mut len: i64 = 0;
         for x in s.as_bytes() {
             match *x {
-                (POP) => {
+                POP => {
                     if len > 0 {
                         len -= 1;
                     }
                 }
-                (CPY) => {
+                CPY => {
                     len <<= 1;
                 }
-                (REV) => {}
+                REV => {}
                 _ => {
                     len += 1;
                 }
@@ -49,16 +49,16 @@ impl Solution {
         let mut k = k;
         for x in s.as_bytes().iter().rev() {
             match *x {
-                (POP) => {
+                POP => {
                     len += 1;
                 }
-                (CPY) => {
+                CPY => {
                     len >>= 1;
                     if k >= len {
                         k -= len
                     }
                 }
-                (REV) => k = len - k - 1,
+                REV => k = len - k - 1,
                 _ => {
                     len -= 1;
                     if k == len {
