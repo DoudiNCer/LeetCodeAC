@@ -18,7 +18,7 @@ use super::Solution;
     1 <= grid[i][j] <= 6
 */
 
-const cases: [[(i32, i32); 2]; 6] = [
+const CASES: [[(i32, i32); 2]; 6] = [
     [(-1, 0), (1, 0)],
     [(0, -1), (0, 1)],
     [(-1, 0), (0, 1)],
@@ -34,7 +34,7 @@ impl Solution {
             return true;
         }
         moved[m * py + px] = true;
-        for (dx, dy) in cases[grid[py][px] as usize - 1] {
+        for (dx, dy) in CASES[grid[py][px] as usize - 1] {
             let (qx, qy) = (px as i32 + dx, py as i32 + dy);
             if qx < 0 || qy < 0 || qx >= m as i32 || qy >= n as i32 {
                 continue;
@@ -42,7 +42,7 @@ impl Solution {
             if moved[m * qy as usize + qx as usize] {
                 continue;
             }
-            for (ndx, ndy) in cases[grid[qy as usize][qx as usize] as usize - 1] {
+            for (ndx, ndy) in CASES[grid[qy as usize][qx as usize] as usize - 1] {
                 if ndx != -dx || ndy != -dy {
                     continue;
                 }
