@@ -48,10 +48,14 @@ impl Solution {
                     let ohs = dangerous[ii as usize][jj as usize];
                     dangerous[ii as usize][jj as usize] =
                         ohs.min(dangerous[i as usize][j as usize] + grid[ii as usize][jj as usize]);
-                    if dangerous[ii as usize][jj as usize] <= health
-                        && dangerous[ii as usize][jj as usize] < ohs
-                    {
-                        nxhs.insert((ii, jj));
+                    if dangerous[ii as usize][jj as usize] < health {
+                        if ii == (m - 1) as i32 && jj == (n - 1) as i32 {
+                            break
+                        }
+                        if dangerous[ii as usize][jj as usize] < ohs
+                        {
+                            nxhs.insert((ii, jj));
+                        }
                     }
                 }
             }
