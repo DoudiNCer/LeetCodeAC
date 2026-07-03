@@ -31,9 +31,9 @@ use std::collections::HashMap;
 impl Solution {
     pub fn find_max_path_score(edges: Vec<Vec<i32>>, online: Vec<bool>, k: i64) -> i32 {
         if edges.len() == 0 {
-            return -1
+            return -1;
         }
-        
+
         let n = online.len();
 
         // turn edges into map
@@ -48,9 +48,13 @@ impl Solution {
             dag.entry(u)
                 .and_modify(|e| {
                     e.push((v, cost));
-                    // e.sort_by(|a, b| a.1.cmp(&b.1));
                 })
                 .or_insert(vec![(v, cost)]);
+        }
+        // Sort vcs by costs
+        for i in 0..(n as i32) {
+            dag.entry(i)
+                .and_modify(|vcs| vcs.sort_by(|a, b| a.1.cmp(&b.1)));
         }
         // Binary search
         let (mut l, mut r) = (-1, mx_c + 1);
@@ -66,19 +70,28 @@ impl Solution {
                         break;
                     }
                     if let Some(vcs) = dag.get(&u) {
-                        for (v, cst) in vcs {
-                            if *cst < m {
-                                continue;
+                        let (mut ll, mut rr) = (-1, vcs.len() as i32);
+                        while ll + 1 < rr {
+                            let mut mm = (ll + rr) >> 1;
+                            if vcs[mm as usize].1 < m {
+                                ll = mm;
+                            } else {
+                                rr = mm;
                             }
-                            let ncs = c + (*cst as i64);
+                        }
+                        if rr >= vcs.len() as i32 {
+                            continue;
+                        }
+                        for i in rr as usize..vcs.len() {
+                            let ncs = c + (vcs[i].1 as i64);
                             if ncs > k {
                                 continue;
                             }
-                            if *v == (n - 1) as i32 {
+                            if vcs[i].0 == (n - 1) as i32 {
                                 ok = true;
                                 break;
                             }
-                            nxhm.entry(*v)
+                            nxhm.entry(vcs[i].0)
                                 .and_modify(|e| {
                                     *e = (*e).min(ncs);
                                 })
