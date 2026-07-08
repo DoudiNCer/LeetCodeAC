@@ -77,6 +77,7 @@ pub mod L3740;
 pub mod L3742;
 pub mod L3751;
 pub mod L3754;
+pub mod L3756;
 pub mod L3761;
 pub mod L3783;
 pub mod L3838;
