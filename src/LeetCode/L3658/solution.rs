@@ -16,11 +16,6 @@ use super::Solution;
 
 impl Solution {
     pub fn gcd_of_odd_even_sums(n: i32) -> i32 {
-        let mut a = n * (n + 1);
-        let mut b = n * n;
-        while b != 0 {
-            (a, b) = (b, a % b)
-        }
-        a
+        n
     }
 }
