@@ -14,6 +14,7 @@ pub mod L796;
 pub mod L874;
 pub mod L1081;
 pub mod L1189;
+pub mod L1260;
 pub mod L1288;
 pub mod L1291;
 pub mod L1320;
