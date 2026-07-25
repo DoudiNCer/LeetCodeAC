@@ -11,9 +11,22 @@ use super::Solution;
 
 impl Solution {
     pub fn maximum_product(nums: Vec<i32>) -> i32 {
-        let mut nums = nums;
-        nums.sort();
-        let n = nums.len();
-        (nums[n - 1] * nums[n - 2] * nums[n - 3]).max(nums[0] * nums[1] * nums[n - 1])
+        let mut mx: (i32, i32, i32) = (-(1 << 10), -(1 << 10), -(1 << 10));
+        let mut mi: (i32, i32) = (1 << 10, 1 << 19);
+        for num in nums {
+            if num >= mx.0 {
+                mx = (num, mx.0, mx.1);
+            } else if num >= mx.1 {
+                mx = (mx.0, num, mx.1);
+            } else if num >= mx.2 {
+                mx.2 = num;
+            }
+            if num <= mi.0 {
+                mi = (num, mi.0);
+            } else if num < mi.1 {
+                mi.1 = num;
+            }
+        }
+        (mx.0 * mx.1 * mx.2).max(mx.0 * mi.0 * mi.1)
     }
 }
