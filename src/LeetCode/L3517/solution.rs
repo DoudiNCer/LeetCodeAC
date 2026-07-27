@@ -20,14 +20,28 @@ use super::Solution;
 
 impl Solution {
     pub fn smallest_palindrome(s: String) -> String {
-        let mut sb = s.as_bytes();
-        let n = sb.len();
-        let mut target = sb[..(n >> 1)].to_vec();
+        let mut cnts = vec![0; 26];
+        for b in s.as_bytes() {
+            cnts[(*b - b'a') as usize] += 1;
+        }
+        let mut target = Vec::with_capacity(s.len());
+        let mut center: Option<u8> = None;
+        for (b, cnt) in cnts.iter().enumerate() {
+            if *cnt == 0 {
+                continue;
+            }
+            if (*cnt) & 1 == 1 {
+                center = Some(b'a' + b as u8);
+            }
+            for _ in 0..(*cnt >> 1) {
+                target.push(b'a' + b as u8)
+            }
+        }
         target.sort();
         let mut rev_tg = target.clone();
         rev_tg.reverse();
-        if n & 1 == 1 {
-            target.push(sb[n >> 1]);
+        if let Some(c) = center {
+            target.push(c);
         }
         target.append(&mut rev_tg);
         String::try_from(target).unwrap()
