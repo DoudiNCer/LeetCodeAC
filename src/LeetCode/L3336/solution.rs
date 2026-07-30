@@ -19,7 +19,6 @@ use super::Solution;
 */
 
 const MOD: i64 = 1_000_000_007;
-const NUM_MAX_RIGHT: usize = 201;
 
 impl Solution {
     pub fn subsequence_pair_count(nums: Vec<i32>) -> i32 {

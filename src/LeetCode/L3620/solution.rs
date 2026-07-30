@@ -72,7 +72,7 @@ impl Solution {
                     if let Some(vcs) = dag.get(&u) {
                         let (mut ll, mut rr) = (-1, vcs.len() as i32);
                         while ll + 1 < rr {
-                            let mut mm = (ll + rr) >> 1;
+                            let mm = (ll + rr) >> 1;
                             if vcs[mm as usize].1 < m {
                                 ll = mm;
                             } else {

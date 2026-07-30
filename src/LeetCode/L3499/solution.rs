@@ -24,7 +24,7 @@ impl Solution {
         let sb = s.as_bytes();
         let mut cnts = vec![0];
         let mut now = b'1' as u8;
-        for (i, b) in sb.iter().enumerate() {
+        for (_, b) in sb.iter().enumerate() {
             if *b != now {
                 cnts.push(1);
                 now = *b;

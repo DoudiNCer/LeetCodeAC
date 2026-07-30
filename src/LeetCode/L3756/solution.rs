@@ -1,5 +1,4 @@
 use super::Solution;
-use std::cmp::Ordering::Less;
 
 /*
     给你一个长度为 m 的字符串 s，其中仅包含数字。另给你一个二维整数数组 queries，其中 queries[i] = [li, ri]。
@@ -37,7 +36,7 @@ impl Solution {
                 continue;
             }
             let mut np = pre_sum[pre_sum.len() - 1].clone();
-            np.0 += (b as i32);
+            np.0 += b as i32;
             np.1 *= 10;
             np.1 += b as i64;
             np.1 %= MOD;

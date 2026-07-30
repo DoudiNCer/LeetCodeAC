@@ -30,7 +30,7 @@ impl Solution {
                 continue;
             }
             for k in 0..n {
-                ans[(ij ^ nums[k] as usize)] = true
+                ans[ij ^ nums[k] as usize] = true
             }
         }
         let mut res = 0;
