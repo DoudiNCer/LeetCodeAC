@@ -91,7 +91,7 @@ impl Solution {
                 res = res.max(qr + 1 - cnts[cr - 3] - (cnts[cr - 1] - cnts[cr - 2]))
             }
             let (sl, sr) = ((cl >> 1) + 1, (cr - 1) >> 1);
-            for i in (sl..sr) {
+            for i in sl..sr {
                 res = res.max(segment_tree_max[i])
             }
 

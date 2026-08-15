@@ -23,7 +23,7 @@ impl Solution {
     pub fn stone_game_ii(piles: Vec<i32>) -> i32 {
         let n = piles.len();
         let mut prefix_sum = vec![0; n + 1];
-        for i in (0..n) {
+        for i in 0..n {
             prefix_sum[i + 1] = prefix_sum[i] + piles[i];
         }
         let mut dp: HashMap<(usize, usize), i32> = HashMap::new();

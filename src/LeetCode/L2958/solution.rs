@@ -22,7 +22,7 @@ use std::collections::HashMap;
 
 impl Solution {
     pub fn max_subarray_length(nums: Vec<i32>, k: i32) -> i32 {
-        let mut n = nums.len();
+        let n = nums.len();
         let mut cntMap: HashMap<i32, i32> = HashMap::new();
         let mut res = 0;
         let (mut l, mut r) = (0, 0);
