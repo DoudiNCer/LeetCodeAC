@@ -79,6 +79,7 @@ pub mod L3014;
 pub mod L3016;
 pub mod L3020;
 pub mod L3043;
+pub mod L3069;
 pub mod L3090;
 pub mod L3120;
 pub mod L3121;
