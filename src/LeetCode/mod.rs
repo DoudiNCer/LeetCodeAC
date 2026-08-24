@@ -44,6 +44,7 @@ pub mod L1846;
 pub mod L1848;
 pub mod L1855;
 pub mod L1861;
+pub mod L1872;
 pub mod L1914;
 pub mod L1927;
 pub mod L1929;
