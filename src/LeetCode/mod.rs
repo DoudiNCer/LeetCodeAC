@@ -75,6 +75,7 @@ pub mod L2784;
 pub mod L2833;
 pub mod L2839;
 pub mod L2840;
+pub mod L2904;
 pub mod L2958;
 pub mod L2996;
 pub mod L3014;
