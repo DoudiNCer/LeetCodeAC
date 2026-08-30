@@ -26,9 +26,9 @@ use super::Solution;
 
 use std::collections::HashMap;
 
-const LOC_0: i32 = ((1 << 1) + (1 << 2) + (1 << 3) + (1 << 4));
-const LOC_1: i32 = ((1 << 3) + (1 << 4) + (1 << 5) + (1 << 6));
-const LOC_2: i32 = ((1 << 5) + (1 << 6) + (1 << 7) + (1 << 8));
+const LOC_0: i32 = (1 << 1) + (1 << 2) + (1 << 3) + (1 << 4);
+const LOC_1: i32 = (1 << 3) + (1 << 4) + (1 << 5) + (1 << 6);
+const LOC_2: i32 = (1 << 5) + (1 << 6) + (1 << 7) + (1 << 8);
 
 impl Solution {
     pub fn max_number_of_families(n: i32, reserved_seats: Vec<Vec<i32>>) -> i32 {

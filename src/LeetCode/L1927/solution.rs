@@ -33,7 +33,7 @@ impl Solution {
                 b'?' => {
                     cnt += 1;
                 }
-                (b) => {
+                b => {
                     sm += (b - b'0') as i32;
                 }
             }
@@ -41,7 +41,7 @@ impl Solution {
                 b'?' => {
                     cnt -= 1;
                 }
-                (b) => {
+                b => {
                     sm -= (b - b'0') as i32;
                 }
             }
