@@ -1,6 +1,5 @@
 use super::Solution;
 use super::listnode::ListNode;
-use std::process::id;
 
 /*
     链表中的 临界点 定义为一个 局部极大值点 或 局部极小值点 。
@@ -35,6 +34,7 @@ use std::process::id;
 //     }
 //   }
 // }
+
 impl Solution {
     pub fn nodes_between_critical_points(head: Option<Box<ListNode>>) -> Vec<i32> {
         let mut res = vec![-1, -1];
