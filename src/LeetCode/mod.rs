@@ -34,6 +34,7 @@ pub mod L1391;
 pub mod L1406;
 pub mod L1464;
 pub mod L1470;
+pub mod L1477;
 pub mod L1502;
 pub mod L1510;
 pub mod L1559;
