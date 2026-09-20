@@ -107,6 +107,7 @@ pub mod L3345;
 pub mod L3471;
 pub mod L3483;
 pub mod L3488;
+pub mod L3498;
 pub mod L3499;
 pub mod L3501;
 pub mod L3513;
