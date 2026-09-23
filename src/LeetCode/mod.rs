@@ -118,6 +118,7 @@ pub mod L3524;
 pub mod L3532;
 pub mod L3534;
 pub mod L3536;
+pub mod L3550;
 pub mod L3612;
 pub mod L3614;
 pub mod L3620;
