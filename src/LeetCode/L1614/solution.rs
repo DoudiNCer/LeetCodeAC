@@ -13,20 +13,20 @@ use super::Solution;
 impl Solution {
     pub fn max_depth(s: String) -> i32 {
         let mut res = 0;
-        let mut stack: Vec<bool> = Vec::new();
+        let mut stack = 0;
         let s = s.as_bytes();
         for c in s {
             match *c {
                 b'(' => {
-                    stack.push(true);
-                    res = res.max(stack.len())
+                    stack += 1;
+                    res = res.max(stack)
                 }
                 b')' => {
-                    stack.pop();
+                    stack -= 1;
                 }
                 _ => {}
             }
         }
-        res as i32
+        res
     }
 }
