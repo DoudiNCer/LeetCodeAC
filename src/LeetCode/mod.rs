@@ -133,6 +133,7 @@ pub mod L3620;
 pub mod L3622;
 pub mod L3633;
 pub mod L3635;
+pub mod L3644;
 pub mod L3653;
 pub mod L3658;
 pub mod L3689;
