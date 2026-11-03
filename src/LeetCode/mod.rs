@@ -149,6 +149,7 @@ pub mod L3720;
 pub mod L3723;
 pub mod L3727;
 pub mod L3731;
+pub mod L3736;
 pub mod L3737;
 pub mod L3739;
 pub mod L3740;
