@@ -29,6 +29,7 @@ pub mod L1189;
 pub mod L1190;
 pub mod L1254;
 pub mod L1260;
+pub mod L1267;
 pub mod L1288;
 pub mod L1291;
 pub mod L1320;
