@@ -80,6 +80,7 @@ pub mod L2130;
 pub mod L2144;
 pub mod L2161;
 pub mod L2213;
+pub mod L2243;
 pub mod L2265;
 pub mod L2409;
 pub mod L2452;
